@@ -6,8 +6,8 @@ catalog:
   typescript: 5.8.2
 
   # react
-  react: 19.0.0
-  react-dom: 19.0.0
+  react: 19.1.0
+  react-dom: 19.1.0
 
   # vite
   # [TODO]: vite rolldown?
@@ -20,7 +20,7 @@ catalog:
   "@vitejs/plugin-react": 4.3.4
 
   # testing
-  vitest: 3.1.1
+  vitest: 3.2.4
   "@testing-library/dom": 10.4.0
   "@testing-library/jest-dom": 6.6.3
   "@testing-library/react": 16.2.0
@@ -31,11 +31,9 @@ catalog:
   vitepress: 1.6.3
 
   # utils
-  # [TODO]: zod 4?
-  zod: 3.23.8
+  zod: 3.25.76
 
   # types
-  "@types/react": 19.0.10
-  "@types/react-dom": 19.0.4
-  # [TODO]: types node?
-  "@types/node": 22.13.17
+  "@types/react": 19.1.8
+  "@types/react-dom": 19.1.6
+  "@types/node": 24.0.10
