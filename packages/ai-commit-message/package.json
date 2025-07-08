@@ -1,0 +1,9 @@
+{
+  "name": "@mooocha/ai-commit-message",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Xibo Wang",
+  "type": "module",
+  "scripts": {}
+}
