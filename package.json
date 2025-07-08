@@ -6,7 +6,7 @@
   "author": "Xibo Wang",
   "type": "module",
   "scripts": {
-    "preinstall": "pnpm install",
+    "prebuild": "pnpm install",
     "build": "turbo run build"
   },
   "engines": {
