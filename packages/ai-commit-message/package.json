@@ -5,5 +5,8 @@
   "license": "ISC",
   "author": "Xibo Wang",
   "type": "module",
-  "scripts": {}
+  "scripts": {},
+  "dependencies": {
+    "@google/genai": "^1.8.0"
+  }
 }
