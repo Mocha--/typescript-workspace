@@ -13,7 +13,7 @@ TMP_FILE=$(mktemp)
 
 # Only write AI_MSG if it's not empty
 if [ -n "$AI_MSG" ]; then
-  echo "$AI_MSG" > "$TMP_FILE"
+  printf "%s" "$AI_MSG" > "$TMP_FILE"
 else
   > "$TMP_FILE"
 fi
