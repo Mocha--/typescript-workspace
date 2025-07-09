@@ -11,8 +11,12 @@ echo "ai commit message: $AI_MSG"
 # Create a temporary file
 TMP_FILE=$(mktemp)
 
-# Write the AI-generated message to the temporary file
-echo "$AI_MSG" > "$TMP_FILE"
+# Only write AI_MSG if it's not empty
+if [ -n "$AI_MSG" ]; then
+  echo "$AI_MSG" > "$TMP_FILE"
+else
+  > "$TMP_FILE"
+fi
 
 # Append the original commit message to the temporary file
 cat "$1" >> "$TMP_FILE"
