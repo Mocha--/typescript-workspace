@@ -5,8 +5,7 @@ const ticketNamePattern = 'VS-{ticket-id}';
 
 let diffResult = '';
 try {
-  // diffResult = execSync('git diff --staged', { encoding: 'utf-8' });
-  diffResult = execSync('git diff', { encoding: 'utf-8' });
+  diffResult = execSync('git diff --staged', { encoding: 'utf-8' });
 } catch (error) {
   console.error(error);
 }
