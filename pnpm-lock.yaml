@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@types/node':
+      specifier: 'catalog:'
+      version: 24.0.10
     typescript:
       specifier: 5.8.2
       version: 5.8.2
@@ -27,6 +30,9 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0
     devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.0.10
       typescript:
         specifier: 'catalog:'
         version: 5.8.2
@@ -41,6 +47,9 @@ packages:
     peerDependenciesMeta:
       '@modelcontextprotocol/sdk':
         optional: true
+
+  '@types/node@24.0.10':
+    resolution: {integrity: sha512-ENHwaH+JIRTDIEEbDK6QSQntAYGtbvdDXnMXnZaZ6k13Du1dPMmprkEHIL7ok2Wl2aZevetwTAb5S+7yIF+enA==}
 
   agent-base@7.1.4:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
@@ -169,6 +178,9 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@7.8.0:
+    resolution: {integrity: sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==}
+
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
@@ -212,6 +224,10 @@ snapshots:
       - encoding
       - supports-color
       - utf-8-validate
+
+  '@types/node@24.0.10':
+    dependencies:
+      undici-types: 7.8.0
 
   agent-base@7.1.4: {}
 
@@ -337,6 +353,8 @@ snapshots:
       turbo-windows-arm64: 2.5.4
 
   typescript@5.8.2: {}
+
+  undici-types@7.8.0: {}
 
   uuid@9.0.1: {}
 
