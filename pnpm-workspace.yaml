@@ -2,38 +2,23 @@ packages:
   - packages/*
 
 catalog:
-  # typescript
   typescript: 5.8.2
-
-  # react
   react: 19.1.0
   react-dom: 19.1.0
-
-  # vite
-  # [TODO]: vite rolldown?
   vite: 6.2.4
   vite-plugin-checker: 0.9.1
   vite-tsconfig-paths: 5.1.4
   vite-plugin-git-commit-hash: 1.0.7
   vite-plugin-html: 3.2.2
-  # [TODO]: plugin swc?
-  "@vitejs/plugin-react": 4.3.4
-
-  # testing
+  '@vitejs/plugin-react': 4.3.4
   vitest: 3.2.4
-  "@testing-library/dom": 10.4.0
-  "@testing-library/jest-dom": 6.6.3
-  "@testing-library/react": 16.2.0
-  "@testing-library/react-hooks": 8.0.1
-  "@testing-library/user-event": 14.6.1
-
-  # docs
+  '@testing-library/dom': 10.4.0
+  '@testing-library/jest-dom': 6.6.3
+  '@testing-library/react': 16.2.0
+  '@testing-library/react-hooks': 8.0.1
+  '@testing-library/user-event': 14.6.1
   vitepress: 1.6.3
-
-  # utils
   zod: 3.25.76
-
-  # types
-  "@types/react": 19.1.8
-  "@types/react-dom": 19.1.6
-  "@types/node": 24.0.10
+  '@types/react': 19.1.8
+  '@types/react-dom': 19.1.6
+  '@types/node': 24.0.10
