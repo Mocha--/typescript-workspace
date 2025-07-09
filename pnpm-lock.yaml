@@ -7,7 +7,7 @@ settings:
 catalogs:
   default:
     '@types/node':
-      specifier: 'catalog:'
+      specifier: 24.0.10
       version: 24.0.10
     typescript:
       specifier: 5.8.2
