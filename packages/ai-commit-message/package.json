@@ -5,7 +5,10 @@
   "license": "ISC",
   "author": "Xibo Wang",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit"
+  },
   "dependencies": {
     "@google/genai": "^1.8.0"
   },
