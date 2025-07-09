@@ -5,9 +5,13 @@
   "license": "ISC",
   "author": "Xibo Wang",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "prepare": "pnpm build"
   },
   "dependencies": {
     "@google/genai": "^1.8.0"
