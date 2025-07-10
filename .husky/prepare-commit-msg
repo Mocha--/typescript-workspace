@@ -1,7 +1,12 @@
 #!/bin/sh
 
+# If this is a merge commit, exit without doing anything
+if [ "$2" = "merge" ]; then
+  exit 0
+fi
+
 # Run the AI script and store the output
-echo "creating ai commit message..."
+echo "🤖  creating ai commit message..."
 AI_MSG=$(node .husky/ai-commit-message.js 2>/dev/null) || AI_MSG=""
 if [ $? -ne 0 ]; then
   AI_MSG=""
