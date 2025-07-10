@@ -1,0 +1,11 @@
+{
+  "extends": ["./core.json"],
+  "compilerOptions": {
+    /* Module */
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+
+    /* Built-in Libs */
+    "lib": ["ESNext"]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@mooocha/tsconfig",
+  "version": "1.0.0",
+  "author": "Xibo Wang",
+  "license": "ISC",
+  "description": "",
+  "exports": {
+    "./*": {
+      "default": "./src/*"
+    }
+  }
+}

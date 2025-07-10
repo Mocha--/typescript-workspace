@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    /* Code Emit */
+    "noEmit": false,
+    "outDir": "${configDir}/dts",
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+
+    /* Composition */
+    "composite": true
+  }
+}
