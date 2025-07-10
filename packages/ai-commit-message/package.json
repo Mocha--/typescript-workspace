@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc",
     "check-types": "tsc --noEmit",
-    "prepare": "pnpm build"
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@google/genai": "^1.8.0"
