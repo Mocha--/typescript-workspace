@@ -2,8 +2,12 @@
   "extends": ["./core.json"],
   "compilerOptions": {
     /* Module */
-    "moduleResolution": "NodeNext",
-    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+
+    /* Code Emit */
+    "noEmit": false,
+    "outDir": "${configDir}/dist",
 
     /* Built-in Libs */
     "lib": ["ESNext"]

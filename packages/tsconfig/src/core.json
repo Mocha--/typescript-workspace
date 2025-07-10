@@ -24,9 +24,6 @@
      * catch unused variables with eslint
      */
     "noUnusedLocals": false,
-    "noUnusedParameters": false,
-
-    /* Code Emit */
-    "noEmit": true
+    "noUnusedParameters": false
   }
 }
