@@ -17,6 +17,7 @@
     "@google/genai": "^1.8.0"
   },
   "devDependencies": {
+    "@mooocha/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

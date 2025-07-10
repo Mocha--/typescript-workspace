@@ -1,10 +1,4 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "skipLibCheck": true,
-    "outDir": "./dist",
-  },
-  "include": ["src"],
+  "extends": ["@mooocha/tsconfig/node.json"],
+  "include": ["src"]
 }

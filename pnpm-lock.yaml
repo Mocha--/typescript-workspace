@@ -30,12 +30,17 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0
     devDependencies:
+      '@mooocha/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/node':
         specifier: 'catalog:'
         version: 24.0.10
       typescript:
         specifier: 'catalog:'
         version: 5.8.2
+
+  packages/tsconfig: {}
 
 packages:
 
