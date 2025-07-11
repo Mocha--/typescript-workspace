@@ -20,3 +20,7 @@ Thumbs.db
 
 # turborepo
 .turbo
+
+# husky hoooks
+.husky/ai-commit-message.js
+.husky/prepare-commit-msg
