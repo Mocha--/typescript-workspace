@@ -20,5 +20,8 @@
     "@mooocha/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
+  },
+  "bin": {
+    "ai-commit-message": "dist/cli.js"
   }
 }
