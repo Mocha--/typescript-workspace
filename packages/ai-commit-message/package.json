@@ -14,7 +14,8 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@google/genai": "^1.8.0"
+    "@google/genai": "^1.8.0",
+    "commander": "^14.0.0"
   },
   "devDependencies": {
     "@mooocha/tsconfig": "workspace:*",
