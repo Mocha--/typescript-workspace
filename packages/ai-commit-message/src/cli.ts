@@ -5,8 +5,14 @@ import { createCommand } from 'commander';
 
 const patternOptionKey = 'pattern';
 const instructionOptionKey = 'instruction';
+const maxTokensOptionKey = 'max-tokens';
 
-type CLIOptions = Record<typeof patternOptionKey | typeof instructionOptionKey, string>;
+type CLIOptions = Record<
+  | typeof patternOptionKey
+  | typeof instructionOptionKey
+  | typeof maxTokensOptionKey,
+  string
+>;
 
 const cliOptions: CLIOptions = createCommand()
   .name('ai-commit-message')
@@ -14,6 +20,7 @@ const cliOptions: CLIOptions = createCommand()
   .version(packageJson.version)
   .option(`--${patternOptionKey} <${patternOptionKey}>`, 'if found in the branch name, then generate the message in the format of <pattern>: <commit message>')
   .option(`--${instructionOptionKey} <${instructionOptionKey}>`, 'instruction to use for the commit message')
+  .option(`--${maxTokensOptionKey} <${maxTokensOptionKey}>`, 'max tokens to consume by AI model')
   .parse(process.argv)
   .opts();
 
