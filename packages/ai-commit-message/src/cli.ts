@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-
-import packageJson from '../package.json' with { type: 'json' };
+import { execSync } from 'child_process';
 import { createCommand } from 'commander';
+import packageJson from '../package.json' with { type: 'json' };
 
 const patternOptionKey = 'pattern';
 const instructionOptionKey = 'instruction';
@@ -23,5 +23,8 @@ const cliOptions: CLIOptions = createCommand()
   .option(`--${maxTokensOptionKey} <${maxTokensOptionKey}>`, 'max tokens to consume by AI model')
   .parse(process.argv)
   .opts();
+
+const gitBranchName = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
+const diffResult = execSync('git diff --staged', { encoding: 'utf-8' }).trim();
 
 console.log(cliOptions);
