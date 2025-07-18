@@ -1,7 +1,7 @@
 {
   "name": "@mooocha/ai-commit-message",
   "version": "1.0.4",
-  "description": "",
+  "description": "Generate commit messages with AI from the current git diff and git branch name",
   "license": "ISC",
   "author": "Xibo Wang",
   "type": "module",

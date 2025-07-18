@@ -14,8 +14,8 @@ type CLIOptions = Record<
 >;
 
 const cliOptions: CLIOptions = createCommand()
-  .name('ai-commit-message')
-  .description('Generate commit messages with AI from the current git diff and git branch name')
+  .name(packageJson.name)
+  .description(packageJson.description)
   .version(packageJson.version)
   .option(`--${patternOptionKey} <${patternOptionKey}>`, 'if found in the branch name, then generate the message in the format of <pattern>: <commit message>')
   .option(`--${instructionOptionKey} <${instructionOptionKey}>`, 'instruction to use for the commit message')
@@ -27,11 +27,9 @@ if (!geminiApiKey) {
   throw new Error('GEMINI_API_KEY is not set');
 }
 
+const {pattern, instruction} = cliOptions;
 const branchName = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
 const diff = execSync('git diff --staged', { encoding: 'utf-8' }).trim();
-
-const {pattern, instruction} = cliOptions;
-
 const aiMessage = await generateAIMessage({
   pattern,
   instruction,
