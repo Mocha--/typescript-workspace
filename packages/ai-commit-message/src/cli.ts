@@ -3,15 +3,12 @@
 import packageJson from '../package.json' with { type: 'json' };
 import { createCommand } from 'commander';
 
-const command = createCommand();
-
-command
+const options = createCommand()
   .name('ai-commit-message')
-  .description('Generate commit messages using AI')
+  .description('Generate commit messages using AI based on the current git diff')
   .version(packageJson.version)
   .option('-m, --message <msg>', 'Commit message to analyze')
-
-command.parse(process.argv);
-const options = command.opts();
+  .parse(process.argv)
+  .opts();
 
 console.log(options);
