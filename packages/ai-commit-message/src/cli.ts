@@ -2,15 +2,14 @@
 import { execSync } from 'child_process';
 import { createCommand } from 'commander';
 import packageJson from '../package.json' with { type: 'json' };
+import { generateAIMessage } from './generate-ai-message.ts';
 
 const patternOptionKey = 'pattern';
 const instructionOptionKey = 'instruction';
-const maxTokensOptionKey = 'max-tokens';
 
 type CLIOptions = Record<
   | typeof patternOptionKey
-  | typeof instructionOptionKey
-  | typeof maxTokensOptionKey,
+  | typeof instructionOptionKey,
   string
 >;
 
@@ -20,11 +19,26 @@ const cliOptions: CLIOptions = createCommand()
   .version(packageJson.version)
   .option(`--${patternOptionKey} <${patternOptionKey}>`, 'if found in the branch name, then generate the message in the format of <pattern>: <commit message>')
   .option(`--${instructionOptionKey} <${instructionOptionKey}>`, 'instruction to use for the commit message')
-  .option(`--${maxTokensOptionKey} <${maxTokensOptionKey}>`, 'max tokens to consume by AI model')
   .parse(process.argv)
   .opts();
 
-const gitBranchName = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
-const diffResult = execSync('git diff --staged', { encoding: 'utf-8' }).trim();
+const geminiApiKey = process.env.GEMINI_API_KEY;
+if (!geminiApiKey) {
+  throw new Error('GEMINI_API_KEY is not set');
+}
 
-console.log(cliOptions);
+const branchName = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
+const diff = execSync('git diff --staged', { encoding: 'utf-8' }).trim();
+
+const {pattern, instruction} = cliOptions;
+
+const aiMessage = await generateAIMessage({
+  pattern,
+  instruction,
+  geminiApiKey,
+  branchName,
+  diff,
+  maxTokens: 10_000,
+});
+
+console.log(aiMessage);

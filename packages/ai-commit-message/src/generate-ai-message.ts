@@ -6,6 +6,7 @@ export interface GenerateAIMessageParams {
   diff: string | null;
   geminiApiKey: string;
   maxTokens: number;
+  instruction: string | null;
 }
 
 export async function generateAIMessage(params: GenerateAIMessageParams) {
@@ -15,6 +16,7 @@ export async function generateAIMessage(params: GenerateAIMessageParams) {
     diff,
     geminiApiKey,
     maxTokens,
+    instruction,
   } = params;
 
   const model = 'gemini-2.5-flash';
@@ -42,7 +44,7 @@ export async function generateAIMessage(params: GenerateAIMessageParams) {
     model,
     contents: prompt,
     config: {
-      systemInstruction: `write a git commit message less than 72 characters. If the pattern ${pattern} can be found in the branch name, then prefix the message in the format of <pattern>:. Do not capitalize the first letter of the message.`,
+      systemInstruction: `write a git commit message less than 72 characters. If the pattern ${pattern} can be found in the branch name, then prefix the message in the format of <pattern>:. Do not capitalize the first letter of the message. ${instruction}`,
     },
   });
 
