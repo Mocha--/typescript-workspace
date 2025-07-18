@@ -8,6 +8,7 @@
     /* Code Emit */
     "noEmit": false,
     "outDir": "${configDir}/dist",
+    "rewriteRelativeImportExtensions": true,
 
     /* Built-in Libs */
     "lib": ["ESNext"]
