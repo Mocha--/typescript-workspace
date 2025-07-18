@@ -19,34 +19,46 @@ export async function generateAIMessage(params: GenerateAIMessageParams) {
     instruction,
   } = params;
 
-  const model = 'gemini-2.5-flash';
+  /**
+   * model candidates in case rate limit is hit
+   */
+  const models = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash'];
   const prompt = `git branch name is: ${branchName} and changes are: ${diff}`;
   const googleAI = new GoogleGenAI({
     apiKey: geminiApiKey,
   });
 
-  /**
-   * check if the prompt is too long
-   */
-  const { totalTokens } = await googleAI.models.countTokens({
-    model,
-    contents: prompt,
-  });
+  for (const model of models) {
+    try {
+      /**
+       * check if the prompt is too long
+       */
+      const { totalTokens } = await googleAI.models.countTokens({
+        model,
+        contents: prompt,
+      });
 
-  if ((totalTokens ?? Infinity) > maxTokens) {
-    throw new Error('Total tokens exceed the limit')
+      if ((totalTokens ?? Infinity) > maxTokens) {
+        throw new Error('Total tokens exceed the limit')
+      }
+
+      /**
+       * send the prompt to the AI model and get the response
+       */
+      const response = await googleAI.models.generateContent({
+        model,
+        contents: prompt,
+        config: {
+          systemInstruction: `write a git commit message less than 72 characters. If the pattern ${pattern} can be found in the branch name, then prefix the message in the format of <pattern>:. Do not capitalize the first letter of the message. ${instruction}`,
+        },
+      });
+
+      return response.text;
+    } catch (error) {
+      console.error(`model ${model} failed to generate a message ${error}`);
+      continue;
+    }
   }
 
-  /**
-   * send the prompt to the AI model and get the response
-   */
-  const response = await googleAI.models.generateContent({
-    model,
-    contents: prompt,
-    config: {
-      systemInstruction: `write a git commit message less than 72 characters. If the pattern ${pattern} can be found in the branch name, then prefix the message in the format of <pattern>:. Do not capitalize the first letter of the message. ${instruction}`,
-    },
-  });
-
-  return response.text;
+  throw new Error('All models failed to generate a message');
 }
