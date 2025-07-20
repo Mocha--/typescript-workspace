@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# If this is not a direct user commit (merge, squash, cherry-pick, revert, message, or template), skip AI
+if [ "$2" = "merge" ] || [ "$2" = "squash" ] || [ "$2" = "cherry-pick" ] || [ "$2" = "revert" ] || [ "$2" = "message" ] || [ "$2" = "template" ]; then
+  exit 0
+fi
+
+# Run the AI script and store the output
+echo "🤖  Creating AI commit message..."
+AI_MSG=$(ai-commit-message 2>/dev/null) || AI_MSG=""
+if [ $? -ne 0 ]; then
+  AI_MSG=""
+fi
+echo "AI commit message: $AI_MSG"
+
+# Create a temporary file
+TMP_FILE=$(mktemp)
+
+# Only write AI_MSG if it's not empty
+if [ -n "$AI_MSG" ]; then
+  printf "%s" "$AI_MSG" > "$TMP_FILE"
+else
+  > "$TMP_FILE"
+fi
+
+# Append the original commit message to the temporary file
+cat "$1" >> "$TMP_FILE"
+
+# Overwrite the original commit message file with the content of the temporary file
+cat "$TMP_FILE" > "$1"
+
+# Remove the temporary file
+rm "$TMP_FILE"

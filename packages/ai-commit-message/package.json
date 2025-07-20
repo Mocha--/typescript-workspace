@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "pnpm clean && tsc",
+    "build": "pnpm clean && tsc && cp src/prepare-commit-msg.template.txt dist/",
     "check-types": "tsc --noEmit",
     "prepublishOnly": "pnpm build"
   },
