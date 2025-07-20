@@ -30,6 +30,12 @@ if (!geminiApiKey) {
 const {pattern, instruction} = cliOptions;
 const branchName = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
 const diff = execSync('git diff --staged', { encoding: 'utf-8' }).trim();
+
+if (!diff) {
+  console.error('No diff found');
+  process.exit(1);
+}
+
 const aiMessage = await generateAIMessage({
   pattern,
   instruction,
