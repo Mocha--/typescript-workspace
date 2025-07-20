@@ -7,7 +7,7 @@ fi
 
 # Run the AI script and store the output
 echo "🤖  Creating AI commit message..."
-AI_MSG=$(ai-commit-message 2>/dev/null) || AI_MSG=""
+AI_MSG=$(${AI_COMMIT_MESSAGE_COMMAND} 2>/dev/null) || AI_MSG=""
 if [ $? -ne 0 ]; then
   AI_MSG=""
 fi

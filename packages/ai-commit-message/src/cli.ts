@@ -84,10 +84,10 @@ function installGitHook() {
     aiCommand += ` ${args.join(' ')}`;
   }
 
-  // Replace the ai-commit-message call in the template
+  // Replace the AI_COMMIT_MESSAGE_COMMAND placeholder in the template
   hookContent = hookContent.replace(
-    /AI_MSG=\$\(ai-commit-message[^)]*\)/,
-    `AI_MSG=\$(${aiCommand} 2>/dev/null)`
+    /\$\{AI_COMMIT_MESSAGE_COMMAND\}/g,
+    aiCommand
   );
 
   // Ensure .husky directory exists
