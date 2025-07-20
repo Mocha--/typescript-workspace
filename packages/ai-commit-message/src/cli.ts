@@ -36,17 +36,21 @@ if (installHook) {
 } else if (uninstallHook) {
   console.log('uninstall the git hook');
 } else {
-  const geminiApiKey = process.env.GEMINI_API_KEY;
-  if (!geminiApiKey) {
-    throw new Error('GEMINI_API_KEY is not set');
-  }
+  const message = await generateCommitMessage();
+  console.log(message);
+}
 
+async function generateCommitMessage() {
   const branchName = execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
   const diff = execSync('git diff --staged', { encoding: 'utf-8' }).trim();
+  const geminiApiKey = process.env.GEMINI_API_KEY;
 
   if (!diff) {
-    console.error('No diff found');
-    process.exit(1);
+    throw new Error('No staged changes found');
+  }
+
+  if (!geminiApiKey) {
+    throw new Error('GEMINI_API_KEY is not set');
   }
 
   const aiMessage = await generateAIMessage({
@@ -58,5 +62,5 @@ if (installHook) {
     maxTokens: 10_000,
   });
 
-  console.log(aiMessage);
+  return aiMessage;
 }
