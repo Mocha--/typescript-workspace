@@ -149,7 +149,7 @@ function uninstallGitHook() {
       console.log('💡 This might be another tool\'s hook. Please check the hook content manually before removing.');
     }
   } else {
-    console.log('ℹ️  No git hook found to uninstall');
+    console.log('ℹ️ No git hook found to uninstall');
   }
 }
 
