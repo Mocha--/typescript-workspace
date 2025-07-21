@@ -87,7 +87,7 @@ function installGitHook() {
     pattern ? `--${kebabCase(patternOptionKey)} "${pattern}"` : null,
     instruction ? `--${kebabCase(instructionOptionKey)} "${instruction}"` : null,
   ].filter(arg => !!arg).join(' ');
-  const aiCommand = ['ai-commit-message', argsString].filter(elm => !!elm).join(' ');
+  const aiCommand = ['aimsg', argsString].filter(elm => !!elm).join(' ');
 
   /**
    * Replace the AI_COMMIT_MESSAGE_COMMAND placeholder in the template
