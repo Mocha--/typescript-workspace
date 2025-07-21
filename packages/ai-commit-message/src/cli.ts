@@ -3,7 +3,7 @@ import { execSync } from 'child_process';
 import { program } from 'commander';
 import { kebabCase } from 'change-case';
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
-import { join, dirname } from 'path';
+import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import packageJson from '../package.json' with { type: 'json' };
 import { generateAIMessage } from './generate-ai-message.ts';
@@ -44,48 +44,34 @@ if (installHook) {
 }
 
 function installGitHook() {
+  /**
+   * Check if we're in a git repository
+   */
   try {
-    // Check if we're in a git repository
     execSync('git rev-parse --git-dir', { stdio: 'ignore' });
   } catch (error) {
-    console.error('Error: Not in a git repository');
-    process.exit(1);
+    throw new Error('Not in a git repository');
   }
 
-  // Read the template file
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const templatePath = join(__dirname, 'prepare-commit-msg.template.txt');
-  let templateContent: string;
+  /**
+   * Read the template file
+   */
+  const templatePath = resolve(dirname(fileURLToPath(import.meta.url)), 'prepare-commit-msg.template.txt');
+  const templateContent = readFileSync(templatePath, 'utf8');
 
-  try {
-    templateContent = readFileSync(templatePath, 'utf8');
-  } catch (error) {
-    console.error('Error: Could not read template file');
-    process.exit(1);
-  }
+  /**
+   * Build the ai-commit-message command with pattern and instruction
+   */
+  const argsString = [
+    pattern ? `--${kebabCase(patternOptionKey)} "${pattern}"` : null,
+    instruction ? `--${kebabCase(instructionOptionKey)} "${instruction}"` : null,
+  ].filter(arg => !!arg).join(' ');
+  const aiCommand = ['ai-commit-message', argsString].filter(elm => !!elm).join(' ');
 
-  // Replace placeholders with actual values
-  let hookContent = templateContent;
-
-  // Build the ai-commit-message command with pattern and instruction
-  let aiCommand = 'ai-commit-message';
-  const args: string[] = [];
-
-  if (pattern) {
-    args.push(`--pattern "${pattern}"`);
-  }
-
-  if (instruction) {
-    args.push(`--instruction "${instruction}"`);
-  }
-
-  if (args.length > 0) {
-    aiCommand += ` ${args.join(' ')}`;
-  }
-
-  // Replace the AI_COMMIT_MESSAGE_COMMAND placeholder in the template
-  hookContent = hookContent.replace(
+  /**
+   * Replace the AI_COMMIT_MESSAGE_COMMAND placeholder in the template
+   */
+  const hookContent = templateContent.replace(
     /\$\{AI_COMMIT_MESSAGE_COMMAND\}/g,
     aiCommand
   );
@@ -97,7 +83,7 @@ function installGitHook() {
   }
 
   // Write the hook file
-  const hookPath = join(huskyDir, 'prepare-commit-msg');
+  const hookPath = resolve(huskyDir, 'prepare-commit-msg');
   writeFileSync(hookPath, hookContent);
 
   // Make the hook executable
