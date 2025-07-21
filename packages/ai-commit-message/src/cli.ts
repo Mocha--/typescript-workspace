@@ -27,8 +27,8 @@ const cliOptions: CLIOptions = program
   .version(packageJson.version)
   .option(`--${kebabCase(patternOptionKey)} <${kebabCase(patternOptionKey)}>`, 'if found in the branch name, then generate the message in the format of <pattern>: <commit message>')
   .option(`--${kebabCase(instructionOptionKey)} <${kebabCase(instructionOptionKey)}>`, 'instruction to use for the commit message')
-  .option(`--${kebabCase(installHookOptionKey)}`, 'install the git hook')
-  .option(`--${kebabCase(uninstallHookOptionKey)}`, 'uninstall the git hook')
+  .option(`--${kebabCase(installHookOptionKey)}`, 'install the git hook; try to install to .husky first, if not found, then install to .git/hooks')
+  .option(`--${kebabCase(uninstallHookOptionKey)}`, 'uninstall the git hook; try to uninstall from .husky first, if not found, then uninstall from .git/hooks')
   .parse(process.argv)
   .opts();
 
@@ -54,6 +54,22 @@ function installGitHook() {
   }
 
   /**
+   * Determine the hooks directory
+   */
+  const gitRoot = execSync('git rev-parse --show-toplevel', { encoding: 'utf8' }).trim();
+  const huskyDir = resolve(gitRoot, '.husky');
+  const gitHooksDir = resolve(gitRoot, '.git', 'hooks');
+  const hooksDir = existsSync(huskyDir) ? huskyDir : gitHooksDir;
+  const hookPath = resolve(hooksDir, 'prepare-commit-msg');
+
+  /**
+   * Check if hook already exists
+   */
+  if (existsSync(hookPath)) {
+    throw new Error(`Git hook already exists at ${hookPath}. Please uninstall it first.`);
+  }
+
+  /**
    * Read the template file
    */
   const templatePath = resolve(dirname(fileURLToPath(import.meta.url)), 'prepare-commit-msg.template.txt');
@@ -76,24 +92,23 @@ function installGitHook() {
     aiCommand
   );
 
-  // Ensure .husky directory exists
-  const huskyDir = '.husky';
-  if (!existsSync(huskyDir)) {
-    mkdirSync(huskyDir, { recursive: true });
-  }
-
-  // Write the hook file
-  const hookPath = resolve(huskyDir, 'prepare-commit-msg');
+  /**
+   * Write the hook file
+   */
   writeFileSync(hookPath, hookContent);
 
-  // Make the hook executable
+  /**
+   * Make the hook executable
+   */
   execSync(`chmod +x ${hookPath}`);
 
   console.log('✅ Git hook installed successfully!');
   console.log(`📁 Hook location: ${hookPath}`);
+
   if (pattern) {
     console.log(`🎯 Pattern: ${pattern}`);
   }
+
   if (instruction) {
     console.log(`📝 Instruction: ${instruction}`);
   }
@@ -101,10 +116,25 @@ function installGitHook() {
 
 function uninstallGitHook() {
   try {
-    const hookPath = '.husky/prepare-commit-msg';
-    if (existsSync(hookPath)) {
+    /**
+     * Check both possible hook locations
+     */
+    const gitRoot = execSync('git rev-parse --show-toplevel', { encoding: 'utf8' }).trim();
+    const huskyHookPath = resolve(gitRoot, '.husky', 'prepare-commit-msg');
+    const gitHookPath = resolve(gitRoot, '.git', 'hooks', 'prepare-commit-msg');
+
+    let hookPath: string | null = null;
+
+    if (existsSync(huskyHookPath)) {
+      hookPath = huskyHookPath;
+    } else if (existsSync(gitHookPath)) {
+      hookPath = gitHookPath;
+    }
+
+    if (hookPath) {
       execSync(`rm ${hookPath}`);
       console.log('✅ Git hook uninstalled successfully!');
+      console.log(`📁 Removed from: ${hookPath}`);
     } else {
       console.log('ℹ️  No git hook found to uninstall');
     }
