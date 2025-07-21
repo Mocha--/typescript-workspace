@@ -34,13 +34,18 @@ const cliOptions: CLIOptions = program
 
 const {pattern, instruction, installHook, uninstallHook} = cliOptions;
 
-if (installHook) {
-  installGitHook();
-} else if (uninstallHook) {
-  uninstallGitHook();
-} else {
-  const message = await generateCommitMessage();
-  console.log(message);
+try {
+  if (installHook) {
+    installGitHook();
+  } else if (uninstallHook) {
+    uninstallGitHook();
+  } else {
+    const message = await generateCommitMessage();
+    console.log(message);
+  }
+} catch (error) {
+  console.error(error instanceof Error ? `❌ ${error.message}` : '❌ Unknown error');
+  process.exit(1);
 }
 
 function installGitHook() {
