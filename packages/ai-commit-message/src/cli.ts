@@ -2,7 +2,7 @@
 import { execSync } from 'child_process';
 import { program } from 'commander';
 import { kebabCase } from 'change-case';
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import packageJson from '../package.json' with { type: 'json' };
@@ -66,7 +66,7 @@ function installGitHook() {
    * Check if hook already exists
    */
   if (existsSync(hookPath)) {
-    throw new Error(`Git hook already exists at ${hookPath}. Please uninstall it first.`);
+    throw new Error(`A prepare-commit-msg hook already exists at ${hookPath}, please uninstall it first.`);
   }
 
   /**
@@ -115,32 +115,36 @@ function installGitHook() {
 }
 
 function uninstallGitHook() {
-  try {
+  /**
+   * Check both possible hook locations
+   */
+  const gitRoot = execSync('git rev-parse --show-toplevel', { encoding: 'utf8' }).trim();
+  const huskyHookPath = resolve(gitRoot, '.husky', 'prepare-commit-msg');
+  const gitHookPath = resolve(gitRoot, '.git', 'hooks', 'prepare-commit-msg');
+  const hookPath = existsSync(huskyHookPath)
+    ? huskyHookPath
+    : existsSync(gitHookPath)
+      ? gitHookPath
+      : null;
+
+  if (hookPath) {
     /**
-     * Check both possible hook locations
+     * Check if this is our hook by looking for our signature
      */
-    const gitRoot = execSync('git rev-parse --show-toplevel', { encoding: 'utf8' }).trim();
-    const huskyHookPath = resolve(gitRoot, '.husky', 'prepare-commit-msg');
-    const gitHookPath = resolve(gitRoot, '.git', 'hooks', 'prepare-commit-msg');
+    const hookContent = readFileSync(hookPath, 'utf8');
+    const isOurHook = hookContent.includes('ai-commit-message-hook-v1-8f7d2e9a');
 
-    let hookPath: string | null = null;
-
-    if (existsSync(huskyHookPath)) {
-      hookPath = huskyHookPath;
-    } else if (existsSync(gitHookPath)) {
-      hookPath = gitHookPath;
-    }
-
-    if (hookPath) {
+    if (isOurHook) {
       execSync(`rm ${hookPath}`);
       console.log('✅ Git hook uninstalled successfully!');
       console.log(`📁 Removed from: ${hookPath}`);
     } else {
-      console.log('ℹ️  No git hook found to uninstall');
+      console.log('❌ Found a prepare-commit-msg hook, but it does not appear to be our AI commit message hook.');
+      console.log(`📁 Hook location: ${hookPath}`);
+      console.log('💡 This might be another tool\'s hook. Please check the hook content manually before removing.');
     }
-  } catch (error) {
-    console.error('Error: Could not uninstall git hook');
-    process.exit(1);
+  } else {
+    console.log('ℹ️  No git hook found to uninstall');
   }
 }
 
