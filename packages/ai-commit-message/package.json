@@ -9,8 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "pnpm clean && tsc && cp src/prepare-commit-msg.template.txt dist/",
+    "build": "tsdown",
     "check-types": "tsc --noEmit",
     "prepublishOnly": "pnpm build"
   },
@@ -22,6 +21,7 @@
   "devDependencies": {
     "@mooocha/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:"
   },
   "bin": {
