@@ -4,8 +4,8 @@ import { program } from 'commander';
 import { kebabCase } from 'change-case';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
-import packageJson from '../package.json' with { type: 'json' };
-import { generateAIMessage } from './generate-ai-message.ts';
+import packageJson from '../package.json';
+import { generateAIMessage } from './generate-ai-message';
 import prepareCommitMsgTemplate from './prepare-commit-msg.template.txt';
 
 const patternOptionKey = 'pattern';
