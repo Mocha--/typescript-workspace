@@ -72,9 +72,9 @@ function installGitHook() {
   const hookPath = resolve(hooksDir, 'prepare-commit-msg');
 
   /**
-   * Check if hook already exists
+   * Check if hook already exists and it is not our hook
    */
-  if (existsSync(hookPath)) {
+  if (existsSync(hookPath) && !readFileSync(hookPath, 'utf8').includes(hookSignature)) {
     throw new Error(`A prepare-commit-msg hook already exists at ${hookPath}, please uninstall it first.`);
   }
 
