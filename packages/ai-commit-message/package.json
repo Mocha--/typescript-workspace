@@ -9,8 +9,8 @@
     "dist"
   ],
   "scripts": {
-    "dev": "tsdown --watch",
-    "build": "tsdown",
+    "dev": "pnpm check-types & tsdown --watch",
+    "build": "pnpm check-types && tsdown",
     "check-types": "tsc --noEmit",
     "prepublishOnly": "pnpm build"
   },
