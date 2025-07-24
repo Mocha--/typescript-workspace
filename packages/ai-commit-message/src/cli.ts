@@ -12,13 +12,15 @@ const patternOptionKey = 'pattern';
 const instructionOptionKey = 'instruction';
 const installHookOptionKey = 'installHook';
 const uninstallHookOptionKey = 'uninstallHook';
+const maxTokensOptionKey = 'maxTokens';
 const hookSignature = 'ai-commit-message-hook-v1-8f7d2e9a';
 
 type CLIOptions = Record<
   | typeof patternOptionKey
   | typeof instructionOptionKey
   | typeof installHookOptionKey
-  | typeof uninstallHookOptionKey,
+  | typeof uninstallHookOptionKey
+  | typeof maxTokensOptionKey,
   string
 >;
 
@@ -30,10 +32,11 @@ const cliOptions: CLIOptions = program
   .option(`--${kebabCase(instructionOptionKey)} <${kebabCase(instructionOptionKey)}>`, 'instruction to use for the commit message')
   .option(`--${kebabCase(installHookOptionKey)}`, 'install the git hook; try to install to .husky first, if not found, then install to .git/hooks')
   .option(`--${kebabCase(uninstallHookOptionKey)}`, 'uninstall the git hook; try to uninstall from .husky first, if not found, then uninstall from .git/hooks')
+  .option(`--${kebabCase(maxTokensOptionKey)} <${kebabCase(maxTokensOptionKey)}>`, 'max tokens to use for the commit message')
   .parse(process.argv)
   .opts();
 
-const {pattern, instruction, installHook, uninstallHook} = cliOptions;
+const {pattern, instruction, installHook, uninstallHook, maxTokens} = cliOptions;
 
 try {
   if (installHook) {
@@ -81,6 +84,7 @@ function installGitHook() {
   const argsString = [
     pattern ? `--${kebabCase(patternOptionKey)} "${pattern}"` : null,
     instruction ? `--${kebabCase(instructionOptionKey)} "${instruction}"` : null,
+    maxTokens ? `--${kebabCase(maxTokensOptionKey)} ${maxTokens}` : null,
   ].filter(arg => !!arg).join(' ');
   const aiCommand = ['aimsg', argsString].filter(elm => !!elm).join(' ');
 
@@ -168,7 +172,7 @@ async function generateCommitMessage() {
     geminiApiKey,
     branchName,
     diff,
-    maxTokens: 10_000,
+    maxTokens: maxTokens ? parseInt(maxTokens) : 10_000,
   });
 
   return aiMessage;
