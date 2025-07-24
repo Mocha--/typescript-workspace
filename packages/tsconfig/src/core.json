@@ -7,6 +7,8 @@
     "useDefineForClassFields": true,
 
     /* Module */
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -24,6 +26,9 @@
      * catch unused variables with eslint
      */
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+
+    /* Code Emit */
+    "noEmit": true
   }
 }

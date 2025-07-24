@@ -1,14 +1,7 @@
 {
   "extends": ["./core.json"],
   "compilerOptions": {
-    /* Module */
-    "moduleResolution": "Bundler",
-    "module": "ESNext",
-
     /* Built-in Libs */
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-
-    /* Code Emit */
-    "noEmit": true
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
   }
 }

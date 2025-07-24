@@ -1,15 +1,6 @@
 {
   "extends": ["./core.json"],
   "compilerOptions": {
-    /* Module */
-    "moduleResolution": "Bundler",
-    "module": "ESNext",
-
-    /* Code Emit */
-    "noEmit": false,
-    "outDir": "${configDir}/dist",
-    "rewriteRelativeImportExtensions": true,
-
     /* Built-in Libs */
     "lib": ["ESNext"]
   }
