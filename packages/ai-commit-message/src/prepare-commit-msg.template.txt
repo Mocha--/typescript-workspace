@@ -1,5 +1,5 @@
 #!/bin/sh
-# AI Commit Message Hook - Signature: ai-commit-message-hook-v1-8f7d2e9a
+# AI Commit Message Hook - Signature: ${HOOK_SIGNATURE}
 
 # If this is not a direct user commit (merge, squash, cherry-pick, revert, message, or template), skip AI
 if [ "$2" = "merge" ] || [ "$2" = "squash" ] || [ "$2" = "cherry-pick" ] || [ "$2" = "revert" ] || [ "$2" = "message" ] || [ "$2" = "template" ]; then

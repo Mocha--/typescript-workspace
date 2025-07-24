@@ -3,15 +3,16 @@ import { execSync } from 'child_process';
 import { program } from 'commander';
 import { kebabCase } from 'change-case';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { resolve } from 'path';
 import packageJson from '../package.json' with { type: 'json' };
 import { generateAIMessage } from './generate-ai-message.ts';
+import prepareCommitMsgTemplate from './prepare-commit-msg.template.txt';
 
 const patternOptionKey = 'pattern';
 const instructionOptionKey = 'instruction';
 const installHookOptionKey = 'installHook';
 const uninstallHookOptionKey = 'uninstallHook';
+const hookSignature = 'ai-commit-message-hook-v1-8f7d2e9a';
 
 type CLIOptions = Record<
   | typeof patternOptionKey
@@ -75,12 +76,6 @@ function installGitHook() {
   }
 
   /**
-   * Read the template file
-   */
-  const templatePath = resolve(dirname(fileURLToPath(import.meta.url)), 'prepare-commit-msg.template.txt');
-  const templateContent = readFileSync(templatePath, 'utf8');
-
-  /**
    * Build the ai-commit-message command with pattern and instruction
    */
   const argsString = [
@@ -90,12 +85,13 @@ function installGitHook() {
   const aiCommand = ['aimsg', argsString].filter(elm => !!elm).join(' ');
 
   /**
-   * Replace the AI_COMMIT_MESSAGE_COMMAND placeholder in the template
+   * Replace the following placeholders in the template:
+   * - AI_COMMIT_MESSAGE_COMMAND
+   * - HOOK_SIGNATURE
    */
-  const hookContent = templateContent.replace(
-    /\$\{AI_COMMIT_MESSAGE_COMMAND\}/g,
-    aiCommand
-  );
+  const hookContent = prepareCommitMsgTemplate
+    .replace(/\$\{AI_COMMIT_MESSAGE_COMMAND\}/g, aiCommand)
+    .replace(/\$\{HOOK_SIGNATURE\}/g, hookSignature);
 
   /**
    * Write the hook file
@@ -137,7 +133,7 @@ function uninstallGitHook() {
      * Check if this is our hook by looking for our signature
      */
     const hookContent = readFileSync(hookPath, 'utf8');
-    const isOurHook = hookContent.includes('ai-commit-message-hook-v1-8f7d2e9a');
+    const isOurHook = hookContent.includes(hookSignature);
 
     if (isOurHook) {
       execSync(`rm ${hookPath}`);
