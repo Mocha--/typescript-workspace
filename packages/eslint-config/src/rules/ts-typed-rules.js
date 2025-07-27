@@ -1,7 +1,7 @@
 /** @type {import('eslint').Linter.RulesRecord} */
 const customRules = {
   /**
-   * Reason to customise:
+   * Reason to customize:
    * This allow to use async function in a callback function which requires a void return
    *
    * ```

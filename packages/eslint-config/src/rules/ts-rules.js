@@ -15,7 +15,7 @@ const tsDisabledRules = {
  * This is a copy of vercel's eslint typescript rules.
  * https://github.com/vercel/style-guide/tree/main/eslint/rules/typescript
  *
- * NOTE: these rules dont require type checking
+ * NOTE: these rules don't require type checking
  */
 
 /** @type {import('eslint').Linter.RulesRecord} */
