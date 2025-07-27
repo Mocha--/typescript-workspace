@@ -22,8 +22,8 @@ import { defaultIgnores, srcTsFiles } from "./consts.js";
  * @param {string[]} [params.nextjsFiles] Array of Next.js file patterns to lint, defaults to `[]`
  * @returns {import('typescript-eslint').FlatConfig.Config[]} Array of ESLint flat configs
  */
-export function eslintConfig(params) {
-  const eslintConfigDir = getESLintConfigDir();
+export async function eslintConfig(params) {
+  const eslintConfigDir = await getESLintConfigDir();
 
   const {
     ignores = [],
