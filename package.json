@@ -8,7 +8,8 @@
   "scripts": {
     "prebuild": "pnpm install",
     "build": "turbo run build",
-    "spell:check": "cspell ."
+    "spell:check": "cspell .",
+    "spell:format": "./.cspell/scripts/format-dictionaries.sh"
   },
   "engines": {
     "node": "23.9.0"
