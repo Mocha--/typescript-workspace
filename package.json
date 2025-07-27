@@ -7,7 +7,8 @@
   "type": "module",
   "scripts": {
     "prebuild": "pnpm install",
-    "build": "turbo run build"
+    "build": "turbo run build",
+    "spell:check": "cspell ."
   },
   "engines": {
     "node": "23.9.0"
