@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { program } from 'commander';
 import { kebabCase } from 'change-case';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { resolve } from 'path';
 import packageJson from '../package.json';
 import { generateAIMessage } from './generate-ai-message';
 import prepareCommitMsgTemplate from './prepare-commit-msg.template.txt';
@@ -36,7 +36,7 @@ const cliOptions: CLIOptions = program
   .parse(process.argv)
   .opts();
 
-const {pattern, instruction, installHook, uninstallHook, maxTokens} = cliOptions;
+const { pattern, instruction, installHook, uninstallHook, maxTokens } = cliOptions;
 
 try {
   if (installHook) {
@@ -85,8 +85,8 @@ function installGitHook() {
     pattern ? `--${kebabCase(patternOptionKey)} "${pattern}"` : null,
     instruction ? `--${kebabCase(instructionOptionKey)} "${instruction}"` : null,
     maxTokens ? `--${kebabCase(maxTokensOptionKey)} ${maxTokens}` : null,
-  ].filter(arg => !!arg).join(' ');
-  const aiCommand = ['aimsg', argsString].filter(elm => !!elm).join(' ');
+  ].filter((arg) => Boolean(arg)).join(' ');
+  const aiCommand = ['aimsg', argsString].filter((elm) => Boolean(elm)).join(' ');
 
   /**
    * Replace the following placeholders in the template:

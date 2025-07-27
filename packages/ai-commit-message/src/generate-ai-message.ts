@@ -39,7 +39,7 @@ export async function generateAIMessage(params: GenerateAIMessageParams) {
       });
 
       if ((totalTokens ?? Infinity) > maxTokens) {
-        throw new Error('Total tokens exceed the limit')
+        throw new Error('Total tokens exceed the limit');
       }
 
       /**
