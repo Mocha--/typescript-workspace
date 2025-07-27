@@ -3,6 +3,7 @@ import { globalIgnores } from "eslint/config";
 import { loadESLint } from "eslint";
 import ts from "typescript-eslint";
 import storybook from "eslint-plugin-storybook";
+import { nodeConfig } from './configs/node-config.js';
 import { baseConfig } from "./configs/base-config.js";
 import { reactConfig } from "./configs/react-config.js";
 import { typedLintConfig } from "./configs/typed-lint-config.js";
@@ -56,6 +57,7 @@ export async function eslintConfig(params) {
   return ts.config(
     baseConfig,
     reactConfig,
+    nodeConfig,
     importConfig,
     sourceCodeConfig,
     unicornConfig,
