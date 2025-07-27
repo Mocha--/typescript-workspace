@@ -58,7 +58,7 @@ function installGitHook() {
    */
   try {
     execSync('git rev-parse --git-dir', { stdio: 'ignore' });
-  } catch (error) {
+  } catch {
     throw new Error('Not in a git repository');
   }
 

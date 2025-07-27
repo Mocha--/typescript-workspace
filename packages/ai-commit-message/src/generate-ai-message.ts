@@ -2,8 +2,8 @@ import { GoogleGenAI } from '@google/genai';
 
 export interface GenerateAIMessageParams {
   pattern: string | null;
-  branchName: string | null;
-  diff: string | null;
+  branchName: string;
+  diff: string;
   geminiApiKey: string;
   maxTokens: number;
   instruction: string | null;
@@ -42,6 +42,15 @@ export async function generateAIMessage(params: GenerateAIMessageParams) {
         throw new Error('Total tokens exceed the limit');
       }
 
+      const systemInstruction = [
+        'write a git commit message less than 72 characters.',
+        'Do not capitalize the first letter of the message.',
+        pattern ? `If the pattern ${pattern} can be found in the branch name, then prefix the message in the format of <pattern>:.` : null,
+        instruction ? ` ${instruction}` : null,
+      ]
+        .filter((elm) => Boolean(elm))
+        .join(' ');
+
       /**
        * send the prompt to the AI model and get the response
        */
@@ -49,13 +58,13 @@ export async function generateAIMessage(params: GenerateAIMessageParams) {
         model,
         contents: prompt,
         config: {
-          systemInstruction: `write a git commit message less than 72 characters. If the pattern ${pattern} can be found in the branch name, then prefix the message in the format of <pattern>:. Do not capitalize the first letter of the message. ${instruction}`,
+          systemInstruction,
         },
       });
 
       return response.text;
     } catch (error) {
-      console.error(`model ${model} failed to generate a message ${error}`);
+      console.error(`model ${model} failed to generate a message ${error instanceof Error ? error.message : String(error)}`);
       continue;
     }
   }
