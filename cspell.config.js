@@ -7,10 +7,18 @@ export default {
   useGitignore: true,
   dictionaryDefinitions: [{
     name: 'custom-words',
-    path: './.cspell/custom-words.txt',
+    path: './.cspell/dictionaries/custom-words.txt',
+    addWords: true
+  }, {
+    name: 'tech-words',
+    path: './.cspell/dictionaries/tech-words.txt',
     addWords: true
   }],
   dictionaries: [
-    'custom-words'
+    'custom-words',
+    'tech-words'
   ],
+  ignorePaths: [
+    'pnpm-lock.yaml',
+  ]
 }
