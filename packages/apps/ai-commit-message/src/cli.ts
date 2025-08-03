@@ -10,22 +10,24 @@ const installHookOptionKey = 'installHook';
 const uninstallHookOptionKey = 'uninstallHook';
 const maxTokensOptionKey = 'maxTokens';
 
-// Parse CLI options
-const cliOptions = program
-  .name(packageJson.name)
-  .description(packageJson.description)
-  .version(packageJson.version)
-  .option(`--${kebabCase(patternOptionKey)} <${kebabCase(patternOptionKey)}>`, 'if found in the branch name, then generate the message in the format of <pattern>: <commit message>')
-  .option(`--${kebabCase(instructionOptionKey)} <${kebabCase(instructionOptionKey)}>`, 'instruction to use for the commit message')
-  .option(`--${kebabCase(installHookOptionKey)}`, 'install the git hook; try to install to .husky first, if not found, then install to .git/hooks')
-  .option(`--${kebabCase(uninstallHookOptionKey)}`, 'uninstall the git hook; try to uninstall from .husky first, if not found, then uninstall from .git/hooks')
-  .option(`--${kebabCase(maxTokensOptionKey)} <${kebabCase(maxTokensOptionKey)}>`, 'max tokens to use for the commit message')
-  .parse(process.argv)
-  .opts();
-
 // Main execution
 async function main() {
   try {
+    /**
+     * Parse CLI options
+     */
+    const cliOptions = program
+      .name(packageJson.name)
+      .description(packageJson.description)
+      .version(packageJson.version)
+      .option(`--${kebabCase(patternOptionKey)} <${kebabCase(patternOptionKey)}>`, 'if found in the branch name, then generate the message in the format of <pattern>: <commit message>')
+      .option(`--${kebabCase(instructionOptionKey)} <${kebabCase(instructionOptionKey)}>`, 'instruction to use for the commit message')
+      .option(`--${kebabCase(installHookOptionKey)}`, 'install the git hook; try to install to .husky first, if not found, then install to .git/hooks')
+      .option(`--${kebabCase(uninstallHookOptionKey)}`, 'uninstall the git hook; try to uninstall from .husky first, if not found, then uninstall from .git/hooks')
+      .option(`--${kebabCase(maxTokensOptionKey)} <${kebabCase(maxTokensOptionKey)}>`, 'max tokens to use for the commit message')
+      .parse(process.argv)
+      .opts();
+
     if (cliOptions.installHook) {
       installGitHook({
         pattern: cliOptions.pattern,
