@@ -1,8 +1,7 @@
 import { kebabCase } from 'change-case';
 import prepareCommitMsgTemplate from '../prepare-commit-msg.template.txt';
-import type { HookLocation } from './git.service';
-import { getGitInfo, getHookLocation, hookExists, makeExecutable, removeFile } from './git.service';
-import { fileContains, writeFile } from './file.service';
+import { getGitInfo, getHookLocation, hookExists, type HookLocation } from '../git';
+import { fileContains, makeExecutable, removeFile, writeFile } from '../file';
 
 const HOOK_SIGNATURE = 'ai-commit-message-hook-v1-8f7d2e9a';
 const PATTERN_OPTION_KEY = 'pattern';
@@ -55,7 +54,7 @@ function logInstallationSuccess(hookLocation: HookLocation, options: HookOptions
 /**
  * Install git hook
  */
-export function installHook(options: HookOptions): void {
+export function installGitHook(options: HookOptions): void {
   const gitInfo = getGitInfo();
   const hookLocation = getHookLocation(gitInfo.gitRoot);
 
@@ -75,7 +74,7 @@ export function installHook(options: HookOptions): void {
 /**
  * Uninstall git hook
  */
-export function uninstallHook(): void {
+export function uninstallGitHook(): void {
   const gitInfo = getGitInfo();
   const hookLocation = getHookLocation(gitInfo.gitRoot);
 
