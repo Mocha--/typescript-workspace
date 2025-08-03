@@ -1,5 +1,5 @@
 import { kebabCase } from 'change-case';
-import prepareCommitMsgTemplate from '../prepare-commit-msg.template.txt';
+import prepareCommitMsgTemplate from './prepare-commit-msg.template.txt';
 import { getGitInfo, getHookLocation, hookExists, type HookLocation } from '../git';
 import { fileContains, makeExecutable, removeFile, writeFile } from '../file';
 
