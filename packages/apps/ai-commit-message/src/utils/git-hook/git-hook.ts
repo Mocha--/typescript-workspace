@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { kebabCase } from 'change-case';
 import prepareCommitMsgTemplate from './prepare-commit-msg.template.txt';
-import { getGitInfo, type HookLocation } from '../git';
+import { getGitInfo } from '../git';
 import { fileContains, makeExecutable, removeFile, writeFile } from '../file';
 
 const HOOK_SIGNATURE = 'ai-commit-message-hook-v1-8f7d2e9a';
@@ -14,6 +14,12 @@ interface HookOptions {
   pattern?: string;
   instruction?: string;
   maxTokens?: number;
+}
+
+export interface HookLocation {
+  hooksDir: string;
+  hookPath: string;
+  isHusky: boolean;
 }
 
 /**

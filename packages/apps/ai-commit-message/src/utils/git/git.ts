@@ -6,12 +6,6 @@ export interface GitInfo {
   gitRoot: string;
 }
 
-export interface HookLocation {
-  hooksDir: string;
-  hookPath: string;
-  isHusky: boolean;
-}
-
 /**
  * Get current git branch name
  */
