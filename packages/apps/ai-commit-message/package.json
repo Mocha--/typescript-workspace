@@ -19,11 +19,12 @@
   "dependencies": {
     "@google/genai": "^1.8.0",
     "change-case": "^5.4.4",
-    "commander": "^14.0.0"
+    "commander": "^14.0.0",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@mooocha/tsconfig": "workspace:*",
     "@mooocha/eslint-config": "workspace:*",
+    "@mooocha/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
