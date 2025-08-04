@@ -9,28 +9,28 @@ export interface GitInfo {
 /**
  * Get current git branch name
  */
-export function getCurrentBranch(): string {
+function getGitBranchName(): string {
   return execSync('git branch --show-current', { encoding: 'utf-8' }).trim();
 }
 
 /**
  * Get staged git diff
  */
-export function getStagedDiff(): string {
+function getGitStagedDiff(): string {
   return execSync('git diff --staged', { encoding: 'utf-8' }).trim();
 }
 
 /**
  * Get git repository root
  */
-export function getGitRoot(): string {
+function getGitRoot(): string {
   return execSync('git rev-parse --show-toplevel', { encoding: 'utf8' }).trim();
 }
 
 /**
  * Check if current directory is a git repository
  */
-export function isGitRepository(): boolean {
+function isGitRepository(): boolean {
   try {
     execSync('git rev-parse --git-dir', { stdio: 'ignore' });
     return true;
@@ -47,13 +47,8 @@ export function getGitInfo(): GitInfo {
     throw new Error('Not in a git repository');
   }
 
-  const branchName = getCurrentBranch();
-  const diff = getStagedDiff();
+  const branchName = getGitBranchName();
+  const diff = getGitStagedDiff();
   const gitRoot = getGitRoot();
-
-  if (!diff) {
-    throw new Error('No staged changes found');
-  }
-
   return { branchName, diff, gitRoot };
 }

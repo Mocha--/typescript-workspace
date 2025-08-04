@@ -63,8 +63,8 @@ function logInstallationSuccess(hookLocation: HookLocation, options: HookOptions
  * Install git hook
  */
 export function installGitHook(options: HookOptions): void {
-  const gitInfo = getGitInfo();
-  const hookLocation = getHookLocation(gitInfo.gitRoot);
+  const { gitRoot } = getGitInfo();
+  const hookLocation = getHookLocation(gitRoot);
 
   // Check if hook already exists and it is not our hook
   if (hookExists(hookLocation.hookPath)
@@ -83,8 +83,8 @@ export function installGitHook(options: HookOptions): void {
  * Uninstall git hook
  */
 export function uninstallGitHook(): void {
-  const gitInfo = getGitInfo();
-  const hookLocation = getHookLocation(gitInfo.gitRoot);
+  const { gitRoot } = getGitInfo();
+  const hookLocation = getHookLocation(gitRoot);
 
   if (hookExists(hookLocation.hookPath)) {
     const isOurHook = fileContains(hookLocation.hookPath, HOOK_SIGNATURE);

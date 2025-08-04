@@ -12,14 +12,18 @@ export interface GenerateGitCommitMessageOptions {
  */
 export async function generateGitCommitMessage(options: GenerateGitCommitMessageOptions): Promise<string> {
   const defaultMaxTokens = 10_000;
-  const gitInfo = getGitInfo();
+  const { branchName, diff } = getGitInfo();
+
+  if (!diff) {
+    throw new Error('No staged changes found');
+  }
 
   const params: GenerateAIMessageParams = {
+    diff,
+    branchName,
     pattern: options.pattern ?? null,
     instruction: options.instruction ?? null,
     geminiApiKey: options.geminiApiKey,
-    branchName: gitInfo.branchName,
-    diff: gitInfo.diff,
     maxTokens: options.maxTokens ?? defaultMaxTokens,
   };
 
