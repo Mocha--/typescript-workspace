@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as z from 'zod/mini';
 import { program } from 'commander';
 import { kebabCase } from 'change-case';
@@ -6,14 +8,14 @@ import { generateGitCommitMessage } from './app';
 import { installGitHook, uninstallGitHook } from './utils';
 import { cliOptionsSchema } from './types';
 
-const patternOptionKey = 'pattern';
-const instructionOptionKey = 'instruction';
-const installHookOptionKey = 'installHook';
-const uninstallHookOptionKey = 'uninstallHook';
-const maxTokensOptionKey = 'maxTokens';
-
 // Main execution
 async function main() {
+  const patternOptionKey = 'pattern';
+  const instructionOptionKey = 'instruction';
+  const installHookOptionKey = 'installHook';
+  const uninstallHookOptionKey = 'uninstallHook';
+  const maxTokensOptionKey = 'maxTokens';
+
   try {
     /**
      * Parse CLI options
