@@ -1,6 +1,4 @@
 import { execSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
-import { resolve } from 'node:path';
 
 export interface GitInfo {
   branchName: string;
@@ -64,24 +62,4 @@ export function getGitInfo(): GitInfo {
   }
 
   return { branchName, diff, gitRoot };
-}
-
-/**
- * Determine the hooks directory and path
- */
-export function getHookLocation(gitRoot: string): HookLocation {
-  const huskyDir = resolve(gitRoot, '.husky');
-  const gitHooksDir = resolve(gitRoot, '.git', 'hooks');
-  const isHusky = existsSync(huskyDir);
-  const hooksDir = isHusky ? huskyDir : gitHooksDir;
-  const hookPath = resolve(hooksDir, 'prepare-commit-msg');
-
-  return { hooksDir, hookPath, isHusky };
-}
-
-/**
- * Check if a hook exists at the given path
- */
-export function hookExists(hookPath: string): boolean {
-  return existsSync(hookPath);
 }

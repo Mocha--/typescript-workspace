@@ -1,6 +1,8 @@
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { kebabCase } from 'change-case';
 import prepareCommitMsgTemplate from './prepare-commit-msg.template.txt';
-import { getGitInfo, getHookLocation, hookExists, type HookLocation } from '../git';
+import { getGitInfo, type HookLocation } from '../git';
 import { fileContains, makeExecutable, removeFile, writeFile } from '../file';
 
 const HOOK_SIGNATURE = 'ai-commit-message-hook-v1-8f7d2e9a';
@@ -99,4 +101,24 @@ export function uninstallGitHook(): void {
     // eslint-disable-next-line no-console
     console.warn('ℹ️ No git hook found to uninstall');
   }
+}
+
+/**
+ * Determine the hooks directory and path
+ */
+export function getHookLocation(gitRoot: string): HookLocation {
+  const huskyDir = resolve(gitRoot, '.husky');
+  const gitHooksDir = resolve(gitRoot, '.git', 'hooks');
+  const isHusky = existsSync(huskyDir);
+  const hooksDir = isHusky ? huskyDir : gitHooksDir;
+  const hookPath = resolve(hooksDir, 'prepare-commit-msg');
+
+  return { hooksDir, hookPath, isHusky };
+}
+
+/**
+ * Check if a hook exists at the given path
+ */
+export function hookExists(hookPath: string): boolean {
+  return existsSync(hookPath);
 }
