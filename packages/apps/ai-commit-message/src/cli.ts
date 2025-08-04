@@ -1,8 +1,10 @@
+import * as z from 'zod/mini';
 import { program } from 'commander';
 import { kebabCase } from 'change-case';
 import packageJson from '../package.json';
 import { generateGitCommitMessage } from './app';
 import { installGitHook, uninstallGitHook } from './utils';
+import { cliOptionsSchema } from './types';
 
 const patternOptionKey = 'pattern';
 const instructionOptionKey = 'instruction';
@@ -16,7 +18,7 @@ async function main() {
     /**
      * Parse CLI options
      */
-    const cliOptions = program
+    const rawCliOptions = program
       .name(packageJson.name)
       .description(packageJson.description)
       .version(packageJson.version)
@@ -27,6 +29,15 @@ async function main() {
       .option(`--${kebabCase(maxTokensOptionKey)} <${kebabCase(maxTokensOptionKey)}>`, 'max tokens to use for the commit message')
       .parse(process.argv)
       .opts();
+
+    const {
+      error: parseCliOptionsError,
+      data: cliOptions,
+    } = z.safeParse(cliOptionsSchema, rawCliOptions);
+
+    if (parseCliOptionsError) {
+      throw new Error(parseCliOptionsError.message);
+    }
 
     if (cliOptions.installHook) {
       installGitHook({
@@ -62,7 +73,6 @@ async function main() {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error instanceof Error ? `❌ ${error.message}` : '❌ Unknown error');
-    throw error;
   }
 }
 

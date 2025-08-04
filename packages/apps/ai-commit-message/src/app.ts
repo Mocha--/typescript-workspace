@@ -4,7 +4,7 @@ export interface GenerateGitCommitMessageOptions {
   geminiApiKey: string;
   pattern?: string;
   instruction?: string;
-  maxTokens?: string;
+  maxTokens?: number;
 }
 
 /**
@@ -20,7 +20,7 @@ export async function generateGitCommitMessage(options: GenerateGitCommitMessage
     geminiApiKey: options.geminiApiKey,
     branchName: gitInfo.branchName,
     diff: gitInfo.diff,
-    maxTokens: options.maxTokens ? parseInt(options.maxTokens) : defaultMaxTokens,
+    maxTokens: options.maxTokens ?? defaultMaxTokens,
   };
 
   return generateMessage(params);

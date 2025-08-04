@@ -11,7 +11,7 @@ const MAX_TOKENS_OPTION_KEY = 'maxTokens';
 interface HookOptions {
   pattern?: string;
   instruction?: string;
-  maxTokens?: string;
+  maxTokens?: number;
 }
 
 /**
@@ -21,7 +21,7 @@ function buildHookContent(options: HookOptions): string {
   const argsString = [
     options.pattern ? `--${kebabCase(PATTERN_OPTION_KEY)} "${options.pattern}"` : null,
     options.instruction ? `--${kebabCase(INSTRUCTION_OPTION_KEY)} "${options.instruction}"` : null,
-    options.maxTokens ? `--${kebabCase(MAX_TOKENS_OPTION_KEY)} ${options.maxTokens}` : null,
+    options.maxTokens ? `--${kebabCase(MAX_TOKENS_OPTION_KEY)} ${options.maxTokens.toString()}` : null,
   ].filter((arg) => Boolean(arg)).join(' ');
 
   const aiCommand = ['aimsg', argsString].filter((elm) => Boolean(elm)).join(' ');
