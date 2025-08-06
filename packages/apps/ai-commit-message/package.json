@@ -19,7 +19,6 @@
   },
   "license": "ISC",
   "type": "module",
-  "main": "dist/cli.js",
   "bin": {
     "aimsg": "dist/cli.js"
   },
