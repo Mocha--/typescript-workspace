@@ -2,21 +2,52 @@
   "name": "@mooocha/ai-commit-message",
   "version": "1.2.3",
   "description": "Generate commit messages with AI from the current git diff and git branch name",
-  "license": "ISC",
-  "author": "Xibo Wang",
-  "type": "module",
-  "files": [
-    "dist"
+  "keywords": [
+    "ai",
+    "commit",
+    "git",
+    "gemini",
+    "cli",
+    "automation",
+    "commit-message",
+    "git-hooks",
+    "husky"
   ],
+  "author": {
+    "name": "Xibo Wang",
+    "email": "xibowangmelb@gmail.com"
+  },
+  "license": "ISC",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "aimsg": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mocha--/typescript-workspace/tree/master/packages/apps/ai-commit-message"
+  },
+  "bugs": {
+    "url": "https://github.com/Mocha--/typescript-workspace/issues"
+  },
+  "homepage": "https://github.com/Mocha--/typescript-workspace/blob/master/packages/apps/ai-commit-message/README.md",
   "scripts": {
-    "dev": "pnpm types:check & tsdown --watch",
-    "build": "pnpm types:check && tsdown",
-    "types:check": "tsc --noEmit",
-    "eslint": "eslint .",
-    "eslint:fix": "eslint . --fix",
-    "test:dev": "vitest",
+    "dev": "pnpm types-check:watch & tsdown --watch",
+    "build": "pnpm types-check && tsdown",
+    "types-check": "tsc --noEmit",
+    "types-check:watch": "tsc --noEmit --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "vitest run",
-    "prepublishOnly": "pnpm build"
+    "test:dev": "vitest",
+    "prepublishOnly": "pnpm build && pnpm test"
   },
   "dependencies": {
     "@google/genai": "^1.8.0",
@@ -32,7 +63,11 @@
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
-  "bin": {
-    "aimsg": "dist/cli.js"
+  "peerDependencies": {},
+  "peerDependenciesMeta": {},
+  "overrides": {},
+  "resolutions": {},
+  "publishConfig": {
+    "access": "public"
   }
 }
