@@ -193,7 +193,7 @@ git commit
 ## 🛠️ Development
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 20+
 - pnpm (recommended) or npm
 
 ### Setup
@@ -212,15 +212,17 @@ pnpm build
 pnpm test
 
 # Run linting
-pnpm eslint
+pnpm lint
 ```
 
 ### Scripts
 - `pnpm dev` - Development mode with watch
 - `pnpm build` - Build the project
 - `pnpm test` - Run tests
-- `pnpm eslint` - Run linting
-- `pnpm eslint:fix` - Fix linting issues
+- `pnpm test:dev` - Run tests in watch mode
+- `pnpm lint` - Run linting
+- `pnpm lint:fix` - Fix linting issues
+- `pnpm types-check` - Run TypeScript type checking
 
 ## 🤝 Contributing
 
@@ -228,7 +230,7 @@ pnpm eslint
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
 4. Run tests (`pnpm test`)
-5. Run linting (`pnpm eslint`)
+5. Run linting (`pnpm lint`)
 6. Commit your changes (`git commit -m 'feat: add amazing feature'`)
 7. Push to the branch (`git push origin feature/amazing-feature`)
 8. Open a Pull Request
