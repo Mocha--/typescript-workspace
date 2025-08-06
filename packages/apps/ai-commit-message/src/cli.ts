@@ -73,7 +73,6 @@ async function main() {
       console.log(result);
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error instanceof Error ? `❌ ${error.message}` : '❌ Unknown error');
   }
 }
