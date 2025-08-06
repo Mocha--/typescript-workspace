@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { readFile, writeFile, fileContains, makeExecutable, removeFile } from './file.js';
+import { readFile, writeFile, fileContains, makeExecutable, removeFile } from './file';
 
 // Mock the fs module
 vi.mock('node:fs', () => ({

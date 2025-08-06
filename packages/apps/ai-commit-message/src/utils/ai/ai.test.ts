@@ -1,6 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { generateMessage, type GenerateAIMessageParams } from './ai.js';
+import { generateMessage, type GenerateAIMessageParams } from './ai';
 
 // Mock the GoogleGenAI module
 vi.mock('@google/genai', () => ({

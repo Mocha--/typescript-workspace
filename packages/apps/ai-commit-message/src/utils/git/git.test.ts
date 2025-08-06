@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { getGitInfo } from './git.js';
+import { getGitInfo } from './git';
 
 // Mock the child_process module
 vi.mock('node:child_process', () => ({

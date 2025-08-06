@@ -10,7 +10,7 @@ const PATTERN_OPTION_KEY = 'pattern';
 const INSTRUCTION_OPTION_KEY = 'instruction';
 const MAX_TOKENS_OPTION_KEY = 'maxTokens';
 
-interface HookOptions {
+export interface HookOptions {
   pattern?: string;
   instruction?: string;
   maxTokens?: number;

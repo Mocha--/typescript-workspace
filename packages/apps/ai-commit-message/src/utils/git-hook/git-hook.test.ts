@@ -2,9 +2,9 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { kebabCase } from 'change-case';
-import { getGitInfo } from '../git/git.js';
-import { fileContains, makeExecutable, removeFile, writeFile } from '../file/file.js';
-import { installGitHook, uninstallGitHook, getHookLocation, hookExists, type HookOptions } from './git-hook.js';
+import { getGitInfo } from '../git';
+import { fileContains, makeExecutable, removeFile, writeFile } from '../file';
+import { installGitHook, uninstallGitHook, getHookLocation, hookExists, type HookOptions } from './git-hook';
 
 // Mock the fs module
 vi.mock('node:fs', () => ({
