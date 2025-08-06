@@ -35,9 +35,11 @@ vi.mock('../file/file.js', () => ({
 }));
 
 // Mock the template
+/* eslint-disable no-template-curly-in-string */
 vi.mock('./prepare-commit-msg.template.txt', () => ({
-  default: '#!/bin/sh\n# ${HOOK_SIGNATURE}\n\n${AI_COMMIT_MESSAGE_COMMAND}\n',
+  default: '#!/bin/sh\n# AI Commit Message Hook - Signature: ${HOOK_SIGNATURE}\n\n# If this is not a direct user commit (merge, squash, cherry-pick, revert, message, or template), skip AI\nif [ "$2" = "merge" ] || [ "$2" = "squash" ] || [ "$2" = "cherry-pick" ] || [ "$2" = "revert" ] || [ "$2" = "message" ] || [ "$2" = "template" ]; then\n  exit 0\nfi\n\n# Run the AI script and store the output\necho "🤖  Creating AI commit message..."\nAI_MSG=$(${AI_COMMIT_MESSAGE_COMMAND} 2>/dev/null) || AI_MSG=""\nif [ $? -ne 0 ]; then\n  AI_MSG=""\nfi\necho "AI commit message: $AI_MSG"\n\n# Create a temporary file\nTMP_FILE=$(mktemp)\n\n# Only write AI_MSG if it\'s not empty\nif [ -n "$AI_MSG" ]; then\n  printf "%s" "$AI_MSG" > "$TMP_FILE"\nelse\n  > "$TMP_FILE"\nfi\n\n# Append the original commit message to the temporary file\ncat "$1" >> "$TMP_FILE"\n\n# Overwrite the original commit message file with the content of the temporary file\ncat "$TMP_FILE" > "$1"\n\n# Remove the temporary file\nrm "$TMP_FILE"\n',
 }));
+/* eslint-enable no-template-curly-in-string */
 
 describe('git hook module', () => {
   const mockExistsSync = existsSync as ReturnType<typeof vi.fn>;
@@ -60,7 +62,7 @@ describe('git hook module', () => {
     });
 
     mockResolve.mockImplementation((...args) => args.join('/'));
-    mockKebabCase.mockImplementation((str) => str.toLowerCase());
+    mockKebabCase.mockImplementation((str: string) => str.toLowerCase());
 
     // Default existsSync behavior - no .husky, no hook exists
     mockExistsSync.mockReturnValue(false);
@@ -171,7 +173,9 @@ describe('git hook module', () => {
       });
       mockFileContains.mockReturnValue(false); // not our hook
 
-      expect(() => { installGitHook(baseOptions); }).toThrow(
+      expect(() => {
+        installGitHook(baseOptions);
+      }).toThrow(
         'A prepare-commit-msg hook already exists at /path/to/git/repo/.git/hooks/prepare-commit-msg, please uninstall it first.',
       );
     });
