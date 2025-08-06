@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { execSync } from 'node:child_process';
-import { getGitInfo, type GitInfo } from './git.js';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { getGitInfo } from './git.js';
 
 // Mock the child_process module
 vi.mock('node:child_process', () => ({
   execSync: vi.fn(),
 }));
 
-describe('Git Module', () => {
-  const mockExecSync = execSync as vi.MockedFunction<typeof execSync>;
+describe('git module', () => {
+  const mockExecSync = execSync as ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.clearAllMocks();

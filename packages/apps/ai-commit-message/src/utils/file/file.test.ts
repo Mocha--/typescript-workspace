@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { readFileSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { readFile, writeFile, fileContains, makeExecutable, removeFile } from './file.js';
 
 // Mock the fs module
@@ -14,10 +14,10 @@ vi.mock('node:child_process', () => ({
   execSync: vi.fn(),
 }));
 
-describe('File Module', () => {
-  const mockReadFileSync = readFileSync as vi.MockedFunction<typeof readFileSync>;
-  const mockWriteFileSync = writeFileSync as vi.MockedFunction<typeof writeFileSync>;
-  const mockExecSync = execSync as vi.MockedFunction<typeof execSync>;
+describe('file module', () => {
+  const mockReadFileSync = readFileSync as ReturnType<typeof vi.fn>;
+  const mockWriteFileSync = writeFileSync as ReturnType<typeof vi.fn>;
+  const mockExecSync = execSync as ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.clearAllMocks();

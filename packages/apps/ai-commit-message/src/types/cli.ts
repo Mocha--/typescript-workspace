@@ -8,10 +8,10 @@ export const cliOptionsSchema = z.object({
   maxTokens: z.optional(
     z.pipe(
       z.string(),
-      z.transform(val => parseInt(val, 10)),
+      z.transform((val) => parseInt(val, 10)),
     ).check(
       z.gt(0, 'maxTokens must be a positive number'),
-    )
+    ),
   ),
 });
 

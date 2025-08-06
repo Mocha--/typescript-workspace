@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { kebabCase } from 'change-case';
 import { getGitInfo } from '../git/git.js';
 import { fileContains, makeExecutable, removeFile, writeFile } from '../file/file.js';
@@ -39,15 +39,15 @@ vi.mock('./prepare-commit-msg.template.txt', () => ({
   default: '#!/bin/sh\n# ${HOOK_SIGNATURE}\n\n${AI_COMMIT_MESSAGE_COMMAND}\n',
 }));
 
-describe('Git Hook Module', () => {
-  const mockExistsSync = existsSync as vi.MockedFunction<typeof existsSync>;
-  const mockResolve = resolve as vi.MockedFunction<typeof resolve>;
-  const mockKebabCase = kebabCase as vi.MockedFunction<typeof kebabCase>;
-  const mockGetGitInfo = getGitInfo as vi.MockedFunction<typeof getGitInfo>;
-  const mockFileContains = fileContains as vi.MockedFunction<typeof fileContains>;
-  const mockMakeExecutable = makeExecutable as vi.MockedFunction<typeof makeExecutable>;
-  const mockRemoveFile = removeFile as vi.MockedFunction<typeof removeFile>;
-  const mockWriteFile = writeFile as vi.MockedFunction<typeof writeFile>;
+describe('git hook module', () => {
+  const mockExistsSync = existsSync as ReturnType<typeof vi.fn>;
+  const mockResolve = resolve as ReturnType<typeof vi.fn>;
+  const mockKebabCase = kebabCase as ReturnType<typeof vi.fn>;
+  const mockGetGitInfo = getGitInfo as ReturnType<typeof vi.fn>;
+  const mockFileContains = fileContains as ReturnType<typeof vi.fn>;
+  const mockMakeExecutable = makeExecutable as ReturnType<typeof vi.fn>;
+  const mockRemoveFile = removeFile as ReturnType<typeof vi.fn>;
+  const mockWriteFile = writeFile as ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -143,7 +143,7 @@ describe('Git Hook Module', () => {
 
       expect(mockWriteFile).toHaveBeenCalledWith(
         '/path/to/git/repo/.git/hooks/prepare-commit-msg',
-        expect.stringContaining('#!/bin/sh')
+        expect.stringContaining('#!/bin/sh'),
       );
       expect(mockMakeExecutable).toHaveBeenCalledWith('/path/to/git/repo/.git/hooks/prepare-commit-msg');
     });
@@ -153,7 +153,7 @@ describe('Git Hook Module', () => {
 
       expect(mockWriteFile).toHaveBeenCalledWith(
         '/path/to/git/repo/.git/hooks/prepare-commit-msg',
-        expect.stringContaining('#!/bin/sh')
+        expect.stringContaining('#!/bin/sh'),
       );
       expect(mockMakeExecutable).toHaveBeenCalledWith('/path/to/git/repo/.git/hooks/prepare-commit-msg');
     });
@@ -171,8 +171,8 @@ describe('Git Hook Module', () => {
       });
       mockFileContains.mockReturnValue(false); // not our hook
 
-      expect(() => installGitHook(baseOptions)).toThrow(
-        'A prepare-commit-msg hook already exists at /path/to/git/repo/.git/hooks/prepare-commit-msg, please uninstall it first.'
+      expect(() => { installGitHook(baseOptions); }).toThrow(
+        'A prepare-commit-msg hook already exists at /path/to/git/repo/.git/hooks/prepare-commit-msg, please uninstall it first.',
       );
     });
 
@@ -193,7 +193,7 @@ describe('Git Hook Module', () => {
 
       expect(mockWriteFile).toHaveBeenCalledWith(
         '/path/to/git/repo/.husky/prepare-commit-msg',
-        expect.stringContaining('#!/bin/sh')
+        expect.stringContaining('#!/bin/sh'),
       );
       expect(mockMakeExecutable).toHaveBeenCalledWith('/path/to/git/repo/.husky/prepare-commit-msg');
     });
@@ -271,15 +271,15 @@ describe('Git Hook Module', () => {
 
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.stringContaining('--pattern "feat"')
+        expect.stringContaining('--pattern "feat"'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.stringContaining('--instruction "Use conventional commit format"')
+        expect.stringContaining('--instruction "Use conventional commit format"'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.stringContaining('--max-tokens 1000')
+        expect.stringContaining('--max-tokens 1000'),
       );
     });
 
@@ -288,19 +288,19 @@ describe('Git Hook Module', () => {
 
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.stringContaining('aimsg')
+        expect.stringContaining('aimsg'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--pattern')
+        expect.not.stringContaining('--pattern'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--instruction')
+        expect.not.stringContaining('--instruction'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--max-tokens')
+        expect.not.stringContaining('--max-tokens'),
       );
     });
 
@@ -315,15 +315,15 @@ describe('Git Hook Module', () => {
 
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.stringContaining('--pattern "fix"')
+        expect.stringContaining('--pattern "fix"'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--instruction')
+        expect.not.stringContaining('--instruction'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--max-tokens')
+        expect.not.stringContaining('--max-tokens'),
       );
     });
 
@@ -338,15 +338,15 @@ describe('Git Hook Module', () => {
 
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--pattern')
+        expect.not.stringContaining('--pattern'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.stringContaining('--instruction "Keep it simple"')
+        expect.stringContaining('--instruction "Keep it simple"'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--max-tokens')
+        expect.not.stringContaining('--max-tokens'),
       );
     });
 
@@ -361,15 +361,15 @@ describe('Git Hook Module', () => {
 
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--pattern')
+        expect.not.stringContaining('--pattern'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.not.stringContaining('--instruction')
+        expect.not.stringContaining('--instruction'),
       );
       expect(mockWriteFile).toHaveBeenCalledWith(
         expect.any(String),
-        expect.stringContaining('--max-tokens 500')
+        expect.stringContaining('--max-tokens 500'),
       );
     });
   });

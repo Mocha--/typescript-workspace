@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { GoogleGenAI } from '@google/genai';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { generateMessage, type GenerateAIMessageParams } from './ai.js';
 
 // Mock the GoogleGenAI module
@@ -7,9 +7,9 @@ vi.mock('@google/genai', () => ({
   GoogleGenAI: vi.fn(),
 }));
 
-describe('AI Module', () => {
-  let mockGoogleAI: any;
-  let mockModel: any;
+describe('ai module', () => {
+  let mockGoogleAI: { models: { countTokens: ReturnType<typeof vi.fn>; generateContent: ReturnType<typeof vi.fn> } };
+  let mockModel: { countTokens: ReturnType<typeof vi.fn>; generateContent: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
     // Reset all mocks
@@ -27,7 +27,7 @@ describe('AI Module', () => {
     };
 
     // Mock the GoogleGenAI constructor
-    (GoogleGenAI as any).mockImplementation(() => mockGoogleAI);
+    (GoogleGenAI as ReturnType<typeof vi.fn>).mockImplementation(() => mockGoogleAI);
   });
 
   afterEach(() => {
