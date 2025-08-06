@@ -27,7 +27,8 @@
     "@mooocha/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "bin": {
     "aimsg": "dist/cli.js"
