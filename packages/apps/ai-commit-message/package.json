@@ -62,10 +62,6 @@
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
-  "peerDependencies": {},
-  "peerDependenciesMeta": {},
-  "overrides": {},
-  "resolutions": {},
   "publishConfig": {
     "access": "public"
   }
