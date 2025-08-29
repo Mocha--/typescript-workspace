@@ -3,8 +3,13 @@ node_modules
 .pnpm
 .pnpm-debug.log
 
-# Build artifacts
+# Output
 dist
+.output
+.vercel
+.netlify
+.wrangler
+.svelte-kit
 
 # Logs
 logs
@@ -24,3 +29,7 @@ Thumbs.db
 # husky hoooks
 .husky/ai-commit-message.js
 .husky/prepare-commit-msg
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
