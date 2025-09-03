@@ -4,5 +4,7 @@
 </script>
 
 <div class={styles.root}>
-  <StormSpirit />
+  <StormSpirit
+    title="I am Storm Spirit"
+  />
 </div>
