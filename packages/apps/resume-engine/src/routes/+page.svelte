@@ -1,14 +1,16 @@
 <script lang="ts">
   import { assignInlineVars } from '@vanilla-extract/dynamic';
   import { StormSpirit } from '@/components/template-storm-spirit';
-  import { rootPaddingVar } from '@/components/template-storm-spirit/vars.css';
+  import { stormSpiritRootPaddingVar } from '@/components/template-storm-spirit/vars.css';
   import { styles } from './page.css';
 
   let paddingRem = $state<number>(1);
 
-  const stormSpiritStyle = $derived(`${assignInlineVars({
-    [rootPaddingVar]: `${paddingRem}rem`
-  })}`);
+  const stormSpiritStyle = $derived(
+    assignInlineVars({
+      [stormSpiritRootPaddingVar]: `${paddingRem}rem`,
+    })
+  );
 </script>
 
 <div class={styles.root}>
@@ -17,7 +19,7 @@
   </button>
 
   <StormSpirit
-    style={stormSpiritStyle}
+    style={`${stormSpiritStyle}`}
     title="I am Storm Spirit"
   />
 </div>
