@@ -8,7 +8,7 @@ const mobileBreakpoint = 640;
 
 const root = style({
   containerName: rootContainer,
-  containerType: 'size',
+  containerType: 'inline-size',
   position: 'relative',
   padding: stormSpiritVars.rootPadding,
   vars: {
