@@ -1,9 +1,14 @@
-import { style, createVar } from '@vanilla-extract/css';
+import { style, createVar, createContainer } from '@vanilla-extract/css';
+import { containerWidthGreaterThan } from '@/styles/container-queries';
 import { stormSpiritVars } from './vars.css';
 
+const rootContainer = createContainer();
 const topBackgroundBlockSizeVar = createVar();
+const mobileBreakpoint = 640;
 
 const root = style({
+  containerName: rootContainer,
+  containerType: 'size',
   position: 'relative',
   padding: stormSpiritVars.rootPadding,
   vars: {
@@ -35,43 +40,93 @@ const header = style({
 const main = style({
   display: 'flex',
   gap: '1rem',
-});
-
-const firstSection = style({
-  display: 'flex',
   flexDirection: 'column',
-  gap: stormSpiritVars.paragraphSpacing,
+  padding: '1rem',
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      flexDirection: 'row',
+    },
+  },
 });
 
-const secondSection = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: stormSpiritVars.paragraphSpacing,
+const column = style({
+  display: 'contents',
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: stormSpiritVars.paragraphSpacing,
+    },
+  },
 });
 
-const summary = style({
+const firstSection = style([column, {
+  flex: '0 0 auto',
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      flex: '1 1 0%',
+    },
+  },
+}]);
+
+const secondSection = style([column, {
+  flex: '0 0 auto',
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      flex: '0 0 15rem',
+    },
+  },
+}]);
+
+const titledSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',
 });
 
-const TitledSection = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1rem',
-});
-
-const experience = style([TitledSection, {
-
+const summary = style([titledSection, {
+  order: 2,
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      order: 'initial',
+    },
+  },
 }]);
 
-const contact = style([TitledSection, {
+const experience = style([titledSection, {
+  order: 3,
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      order: 'initial',
+    },
+  },
 }]);
 
-const skills = style([TitledSection, {
+const contact = style([titledSection, {
+  order: 1,
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      order: 'initial',
+    },
+  },
 }]);
 
-const education = style([TitledSection, {
+const skills = style([titledSection, {
+  order: 4,
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      order: 'initial',
+    },
+  },
+}]);
+
+const education = style([titledSection, {
+  order: 5,
+  '@container': {
+    [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
+      order: 'initial',
+    },
+  },
 }]);
 
 export const styles = {
