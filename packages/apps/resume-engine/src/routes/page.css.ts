@@ -1,12 +1,17 @@
 import { style } from '@vanilla-extract/css';
-import { stormSpiritRootPaddingVar } from '@/components/storm-spirit/vars.css';
 
 const root = style({
-  vars: {
-    [stormSpiritRootPaddingVar]: '2rem',
-  },
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+});
+
+const stormSpirit = style({
+  inlineSize: '60rem',
+  maxInlineSize: '100%',
 });
 
 export const styles = {
   root,
+  stormSpirit,
 };

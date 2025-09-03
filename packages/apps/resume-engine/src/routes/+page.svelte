@@ -14,12 +14,17 @@
 </script>
 
 <div class={styles.root}>
-  <button onclick={() => paddingRem += 1}>
-    Increase padding
-  </button>
-
   <StormSpirit
+    class={styles.stormSpirit}
     style={`${stormSpiritStyle}`}
     title="I am Storm Spirit"
   />
+
+  <button
+    style:position="absolute"
+    style:inset="0 auto auto 0"
+    onclick={() => paddingRem += 1}
+  >
+    Increase padding
+  </button>
 </div>
