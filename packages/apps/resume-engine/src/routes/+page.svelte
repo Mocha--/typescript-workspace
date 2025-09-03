@@ -1,12 +1,9 @@
 <script lang="ts">
-  import { assignInlineVars } from '@vanilla-extract/dynamic';
   import { StormSpirit } from '@/components/storm-spirit';
-  import { stormSpiritVars } from '@/components/storm-spirit/vars.css';
   import type { Resume } from '@/types/resume';
   import { styles } from './page.css';
 
-  let paddingRem = $state<number>(1);
-  const resume: Resume = {
+  let resume = $state<Resume>({
     name: 'Storm Spirit',
     summary: 'I am Storm Spirit',
     contact: {
@@ -35,25 +32,19 @@
         location: 'Location 1',
       },
     ],
-  };
-  const stormSpiritStyle = $derived(
-    assignInlineVars({
-      [stormSpiritVars.rootPadding]: `${paddingRem}rem`,
-    })
-  );
+  });
 </script>
 
 <div class={styles.root}>
   <StormSpirit
     class={styles.stormSpirit}
-    style={`${stormSpiritStyle}`}
     resume={resume}
   />
 
   <button
     style:position="absolute"
     style:inset="0 auto auto 0"
-    onclick={() => paddingRem += 1}
+    onclick={() => {}}
   >
     Increase padding
   </button>

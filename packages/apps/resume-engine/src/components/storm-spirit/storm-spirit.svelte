@@ -7,13 +7,11 @@
     resume: Resume;
   }
 
-  const {
+  let {
     resume,
     class: classValue,
     style,
    }: StormSpiritProps = $props();
-
-   const { name, summary, contact, skills, experiences, educations } = resume;
 </script>
 
 <div
@@ -24,19 +22,19 @@
 
   <article class={styles.outlinedBox}>
     <header class={styles.header}>
-      {name}
+      <div>{resume.name}</div>
     </header>
 
     <div class={styles.main}>
       <div class={styles.firstSection}>
         <section class={styles.summary}>
           <header>Summary</header>
-          <p>{summary}</p>
+          <p>{resume.summary}</p>
         </section>
 
         <section class={styles.experience}>
           <header>Experience</header>
-          {#each experiences as experience}
+          {#each resume.experiences as experience}
             <div>
               <div>{experience.company} - ${experience.role}</div>
               <div>{experience.location}</div>
@@ -52,21 +50,21 @@
       <div class={styles.secondSection}>
         <section class={styles.contact}>
           <header>Contact</header>
-          <div>{contact.email}</div>
-          <div>{contact.phone}</div>
-          <div>{contact.address}</div>
+          <div>{resume.contact.email}</div>
+          <div>{resume.contact.phone}</div>
+          <div>{resume.contact.address}</div>
         </section>
 
         <section class={styles.skills}>
           <header>Skills</header>
-          {#each skills as skill}
+          {#each resume.skills as skill}
             <div>{skill}</div>
           {/each}
         </section>
 
         <section class={styles.education}>
           <header>Education</header>
-          {#each educations as education}
+          {#each resume.educations as education}
             <div>{education.school}</div>
             <div>{education.degree}: {education.subject}</div>
             <div>{education.location}</div>
