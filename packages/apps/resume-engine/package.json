@@ -46,6 +46,7 @@
     "vitest-browser-svelte": "^0.1.0"
   },
   "dependencies": {
-    "@vanilla-extract/css": "^1.17.4"
+    "@vanilla-extract/css": "^1.17.4",
+    "@vanilla-extract/dynamic": "^2.1.5"
   }
 }
