@@ -1,15 +1,23 @@
 import { style } from '@vanilla-extract/css';
-
-const headerBackground = style({
-  backgroundColor: '#b0aaab',
-});
+import { rootPaddingVar } from './vars.css';
 
 const root = style({
+  position: 'relative',
+  padding: rootPaddingVar,
+  vars: {
+    [rootPaddingVar]: '1rem',
+  },
+});
+
+const headerBackground = style({
+  position: 'absolute',
+  inset: '0 0 auto 0',
+  blockSize: '12.5rem',
   backgroundColor: '#b0aaab',
 });
 
 const outlinedBox = style({
-
+  position: 'relative',
 });
 
 const header = style({
