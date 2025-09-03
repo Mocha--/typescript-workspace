@@ -1,11 +1,11 @@
 import { style } from '@vanilla-extract/css';
-import { stormSpiritRootPaddingVar } from './vars.css';
+import { stormSpiritVars } from './vars.css';
 
 const root = style({
   position: 'relative',
-  padding: stormSpiritRootPaddingVar,
+  padding: stormSpiritVars.padding,
   vars: {
-    [stormSpiritRootPaddingVar]: '1rem',
+    [stormSpiritVars.padding]: '1rem',
   },
 });
 
