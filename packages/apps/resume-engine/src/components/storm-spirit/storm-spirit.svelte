@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type SvelteHTMLElements } from 'svelte/elements';
-  import { styles } from './template-storm-spirit.css';
+  import { styles } from './storm-spirit.css';
 
   interface StormSpiritProps extends Pick<SvelteHTMLElements['div'], 'class' | 'style'> {
     title: string;

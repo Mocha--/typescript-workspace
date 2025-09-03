@@ -1,9 +1,9 @@
 <script context="module">
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import TemplateStormSpirit from './template-storm-spirit.svelte';
+  import TemplateStormSpirit from './storm-spirit.svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Templates/Storm Spirit',
+    title: 'Components/Storm Spirit',
     component: TemplateStormSpirit,
     parameters: {
       layout: 'fullscreen',

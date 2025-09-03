@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { stormSpiritRootPaddingVar } from '@/components/template-storm-spirit/vars.css';
+import { stormSpiritRootPaddingVar } from '@/components/storm-spirit/vars.css';
 
 const root = style({
   vars: {

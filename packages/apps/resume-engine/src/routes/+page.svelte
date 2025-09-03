@@ -1,7 +1,7 @@
 <script lang="ts">
   import { assignInlineVars } from '@vanilla-extract/dynamic';
-  import { StormSpirit } from '@/components/template-storm-spirit';
-  import { stormSpiritRootPaddingVar } from '@/components/template-storm-spirit/vars.css';
+  import { StormSpirit } from '@/components/storm-spirit';
+  import { stormSpiritRootPaddingVar } from '@/components/storm-spirit/vars.css';
   import { styles } from './page.css';
 
   let paddingRem = $state<number>(1);
