@@ -11,14 +11,13 @@
     class: classValue,
     style,
    }: StormSpiritProps = $props();
-
 </script>
 
 <div
   class={[styles.root, classValue]}
   style={style}
 >
-  <div class={styles.headerBackground}></div>
+  <div class={styles.topBackground}></div>
 
   <article class={styles.outlinedBox}>
     <header class={styles.header}>
