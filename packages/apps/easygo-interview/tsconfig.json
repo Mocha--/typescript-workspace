@@ -1,4 +1,7 @@
 {
   "extends": ["@mooocha/tsconfig/node.json"],
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": false,
+  },
   "include": ["src"]
 }
