@@ -1,6 +1,7 @@
 <script lang="ts">
   import { type SvelteHTMLElements } from 'svelte/elements';
   import type { Resume } from '@/types/resume';
+  import { Section } from './section';
   import { styles } from './storm-spirit.css';
 
   interface StormSpiritProps extends Pick<SvelteHTMLElements['div'], 'class' | 'style'> {
@@ -9,8 +10,8 @@
 
   let {
     resume,
-    class: classValue,
     style,
+    class: classValue,
    }: StormSpiritProps = $props();
 </script>
 
@@ -27,13 +28,17 @@
 
     <div class={styles.main}>
       <div class={styles.firstSection}>
-        <section class={styles.summary}>
-          <header>Summary</header>
+        <Section
+     class={styles.summary}
+          header="Summary"
+        >
           <p>{resume.summary}</p>
-        </section>
+        </Section>
 
-        <section class={styles.experience}>
-          <header>Experience</header>
+        <Section
+     class={styles.experience}
+          header="Experience"
+        >
           {#each resume.experiences as experience}
             <div>
               <div>{experience.company} - ${experience.role}</div>
@@ -44,33 +49,39 @@
               {/each}
             </div>
           {/each}
-        </section>
+        </Section>
       </div>
 
       <div class={styles.secondSection}>
-        <section class={styles.contact}>
-          <header>Contact</header>
+        <Section
+     class={styles.contact}
+          header="Contact"
+        >
           <div>{resume.contact.email}</div>
           <div>{resume.contact.phone}</div>
           <div>{resume.contact.address}</div>
-        </section>
+        </Section>
 
-        <section class={styles.skills}>
-          <header>Skills</header>
+        <Section
+     class={styles.skills}
+          header="Skills"
+        >
           {#each resume.skills as skill}
             <div>{skill}</div>
           {/each}
-        </section>
+        </Section>
 
-        <section class={styles.education}>
-          <header>Education</header>
+        <Section
+     class={styles.education}
+          header="Education"
+        >
           {#each resume.educations as education}
             <div>{education.school}</div>
             <div>{education.degree}: {education.subject}</div>
             <div>{education.location}</div>
             <div>{education.startDate.toLocaleDateString()} - {education.endDate?.toLocaleDateString() ?? 'Current'}</div>
           {/each}
-        </section>
+        </Section>
       </div>
     </div>
   </article>

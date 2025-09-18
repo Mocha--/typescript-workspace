@@ -35,6 +35,8 @@ const header = style({
   alignItems: 'center',
   justifyContent: 'center',
   blockSize: `calc(${topBackgroundBlockSizeVar} - ${stormSpiritVars.rootPadding})`,
+  fontSize: '2rem',
+  fontWeight: '600'
 });
 
 const main = style({
@@ -78,56 +80,50 @@ const secondSection = style([column, {
   },
 }]);
 
-const titledSection = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1rem',
-});
-
-const summary = style([titledSection, {
+const summary = style({
   order: 2,
   '@container': {
     [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
       order: 'initial',
     },
   },
-}]);
+});
 
-const experience = style([titledSection, {
+const experience = style({
   order: 3,
   '@container': {
     [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
       order: 'initial',
     },
   },
-}]);
+});
 
-const contact = style([titledSection, {
+const contact = style({
   order: 1,
   '@container': {
     [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
       order: 'initial',
     },
   },
-}]);
+});
 
-const skills = style([titledSection, {
+const skills = style({
   order: 4,
   '@container': {
     [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
       order: 'initial',
     },
   },
-}]);
+});
 
-const education = style([titledSection, {
+const education = style({
   order: 5,
   '@container': {
     [containerWidthGreaterThan({ width: mobileBreakpoint, containerName: rootContainer })]: {
       order: 'initial',
     },
   },
-}]);
+});
 
 export const styles = {
   root,
