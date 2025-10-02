@@ -1,5 +1,6 @@
 <script lang="ts">
   import { type SvelteHTMLElements } from 'svelte/elements';
+  import { fade } from 'svelte/transition';
   import type { Resume } from '@/types/resume';
   import { Section } from './section';
   import { styles } from './storm-spirit.css';
@@ -29,10 +30,9 @@
     <div class={styles.main}>
       <div class={styles.firstSection}>
         <Section
-     class={styles.summary}
+          class={styles.summary}
           header="Summary"
         >
-          <p>{resume.summary}</p>
         </Section>
 
         <Section
@@ -40,7 +40,7 @@
           header="Experience"
         >
           {#each resume.experiences as experience}
-            <div>
+            <div in:fade={{ duration: 1000 }}>
               <div>{experience.company} - ${experience.role}</div>
               <div>{experience.location}</div>
               <div>{experience.startDate.toLocaleDateString()} - {experience.endDate?.toLocaleDateString() ?? 'Current'}</div>
@@ -53,8 +53,7 @@
       </div>
 
       <div class={styles.secondSection}>
-        <Section
-     class={styles.contact}
+        <Section class={styles.contact}
           header="Contact"
         >
           <div>{resume.contact.email}</div>
@@ -76,10 +75,12 @@
           header="Education"
         >
           {#each resume.educations as education}
-            <div>{education.school}</div>
-            <div>{education.degree}: {education.subject}</div>
-            <div>{education.location}</div>
-            <div>{education.startDate.toLocaleDateString()} - {education.endDate?.toLocaleDateString() ?? 'Current'}</div>
+            <div>
+              <div>{education.school}</div>
+              <div>{education.degree}: {education.subject}</div>
+              <div>{education.location}</div>
+              <div>{education.startDate.toLocaleDateString()} - {education.endDate?.toLocaleDateString() ?? 'Current'}</div>
+            </div>
           {/each}
         </Section>
       </div>

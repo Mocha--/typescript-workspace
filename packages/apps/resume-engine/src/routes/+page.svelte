@@ -20,6 +20,13 @@
         startDate: new Date(),
         endDate: new Date(),
         achievements: ['Achievement 1', 'Achievement 2', 'Achievement 3'],
+      }, {
+        company: 'Company 2',
+        role: 'Role 2',
+        location: 'Location 2',
+        startDate: new Date(),
+        endDate: new Date(),
+        achievements: ['Achievement 4', 'Achievement 5', 'Achievement 6'],
       },
     ],
     educations: [
@@ -30,6 +37,13 @@
         startDate: new Date(),
         endDate: new Date(),
         location: 'Location 1',
+      }, {
+        school: 'School 2',
+        degree: 'Degree 2',
+        subject: 'Subject 2',
+        startDate: new Date(),
+        endDate: new Date(),
+        location: 'Location 2',
       },
     ],
   });
