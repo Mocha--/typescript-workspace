@@ -212,6 +212,22 @@
   font-weight: 500;
 }
 
+.distanceInfo {
+  font-size: 0.875rem;
+  color: rgba(100, 108, 255, 0.9);
+  margin: 0.5rem 0 0 0;
+  font-weight: 500;
+}
+
+.timelineItem.completed .distanceInfo {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.timelineItem.current .distanceInfo {
+  color: rgba(100, 108, 255, 1);
+  font-weight: 600;
+}
+
 /* Mobile optimizations */
 @media (max-width: 479px) {
   .circle {

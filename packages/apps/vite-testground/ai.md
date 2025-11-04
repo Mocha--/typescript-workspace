@@ -18,7 +18,7 @@ What the feature must DO:
   - Out for Delivery
   - Delivered
 - use a wizard to display the states unless you have better alternatives
-- show anticipated timeframe for each stage
+- show how far away for each step
 - Customers especially panic when a package sits in one status for more than 2 days
 - The UI should be mobile friendly or mobile first
 - The app is used quite often by users

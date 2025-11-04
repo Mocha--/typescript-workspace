@@ -83,6 +83,87 @@ export function TrackingStatus() {
     return `${days} days`;
   };
 
+  /**
+   * Calculate how far away a status is (in days and steps)
+   * Returns an object with days and steps information
+   */
+  const getDistanceFromStatus = (status: TrackingStatus): { days: number; steps: number } | null => {
+    const currentIndex = getStatusIndex(trackingInfo.currentStatus);
+    const statusIndex = getStatusIndex(status);
+
+    // For completed or current status, calculate how long it's been
+    if (statusIndex <= currentIndex) {
+      const statusUpdate = getStatusUpdate(status);
+      if (statusUpdate) {
+        const daysSince = Math.floor(
+          (Date.now() - statusUpdate.timestamp.getTime()) / (1000 * 60 * 60 * 24)
+        );
+        return { days: daysSince, steps: 0 };
+      }
+      return null;
+    }
+
+    // For pending statuses, calculate how far away
+    let totalDays = 0;
+    const stepsAway = statusIndex - currentIndex;
+
+    // Calculate days from current status to target status
+    for (let i = currentIndex; i < statusIndex; i++) {
+      const statusKey = statuses[i + 1] as TrackingStatus;
+      const daysForStatus = trackingInfo.estimatedTimeframes[statusKey] || 0;
+      totalDays += daysForStatus;
+    }
+
+    return { days: totalDays, steps: stepsAway };
+  };
+
+  /**
+   * Format how far away a step is in a human-readable way
+   */
+  const formatDistance = (status: TrackingStatus): string => {
+    const distance = getDistanceFromStatus(status);
+    if (!distance) {
+      return '';
+    }
+
+    const { days, steps } = distance;
+    const currentIndex = getStatusIndex(trackingInfo.currentStatus);
+    const statusIndex = getStatusIndex(status);
+
+    // For completed steps
+    if (statusIndex < currentIndex) {
+      if (days === 0) {
+        return 'Completed today';
+      }
+      if (days === 1) {
+        return 'Completed 1 day ago';
+      }
+      return `Completed ${days} days ago`;
+    }
+
+    // For current step
+    if (statusIndex === currentIndex) {
+      if (days === 0) {
+        return 'Started today';
+      }
+      if (days === 1) {
+        return 'Started 1 day ago';
+      }
+      return `Started ${days} days ago`;
+    }
+
+    // For pending steps
+    const parts: string[] = [];
+    if (steps > 0) {
+      parts.push(`${steps} ${steps === 1 ? 'step' : 'steps'} away`);
+    }
+    if (days > 0) {
+      parts.push(`${days} ${days === 1 ? 'day' : 'days'} away`);
+    }
+
+    return parts.length > 0 ? parts.join(' • ') : 'Pending';
+  };
+
   return (
     <div
       className={`${styles.container} ${isVisible ? styles.visible : ''}`}
@@ -156,9 +237,10 @@ export function TrackingStatus() {
                   </div>
                 )}
 
-                {!statusUpdate && isCompleted && (
-                  <p className={styles.statusDescription}>Status completed</p>
-                )}
+                {/* Show how far away this step is */}
+                <p className={styles.distanceInfo}>
+                  {formatDistance(status)}
+                </p>
 
                 {!statusUpdate && !isCompleted && (
                   <p className={styles.statusDescription}>
