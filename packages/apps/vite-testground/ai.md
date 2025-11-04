@@ -1,52 +1,55 @@
-[ONE-LINE SUMMARY: What you're building]
+Build a parcel tracking status page
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📋 CONTEXT
-- What type of application/feature is this?
-- Who are the end users?
-- What business problem does this solve?
-- Any relevant background information?
+- This is an app that shows users the status of their parcel tracking
+- The end users are consumers
+- The app will help reduce the supporting calls because users can come to the app and check their tracking
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ✅ FUNCTIONAL REQUIREMENTS
 What the feature must DO:
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
+- Here are the states of a parcel
+  - Order Placed
+  - Processing
+  - Shipped
+  - Out for Delivery
+  - Delivered
+- use a wizard to display the states unless you have better alternatives
+- show anticipated timeframe for each stage
+- Customers especially panic when a package sits in one status for more than 2 days
+- The UI should be mobile friendly or mobile first
+- The app is used quite often by users
 
 User interactions:
-- [Interaction 1]
-- [Interaction 2]
-
-Data/Content:
-- What data does it display?
-- What data does it collect?
+- input their tracking number
+- submit the tracking number
+- then the app should show the tracking status
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ⚙️ TECHNICAL REQUIREMENTS
-- Framework: [React / Vue / Vanilla JS / etc.]
-- Styling: [Tailwind / CSS Modules / Styled Components]
-- State Management: [useState / Redux / Context / etc.]
-- Data Source: [Mock data / API endpoint / Props]
-- TypeScript: [Yes / No]
+- Framework: React
+- Styling: CSS Module
+- State Management: useState / Context
+- Data Source: Mock data
+- TypeScript: Yes
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 🎨 UI/UX REQUIREMENTS
 Visual Style:
-- [Modern / Minimal / Colorful / Corporate / etc.]
-- Color scheme: [if specific]
+- Modern
+- Color scheme: dark
 
 Responsive Behavior:
-- Mobile: [describe]
-- Tablet: [describe]
-- Desktop: [describe]
+- Mobile: make mobile first
+- Desktop: less desktop users
 
 Accessibility:
-- [Keyboard navigation / Screen reader support / ARIA labels]
+- Keyboard navigation / Screen reader support / ARIA labels
 
 States to Design:
 - Loading state
@@ -55,27 +58,23 @@ States to Design:
 - Success state
 
 Animations/Interactions:
-- [Any transitions, hover effects, etc.]
+- page enter animation after loading the tracking status
+- animation / spinner while data is being submitted
+- hover states
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 🚫 CONSTRAINTS
-- Performance: [Load time / Bundle size requirements]
-- Browser Support: [Modern browsers / IE11 / etc.]
-- Libraries to Avoid: [Any libraries you can't use]
-- File Size Limits: [If applicable]
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🌟 NICE-TO-HAVES (Optional)
-- [Feature that would be great but not essential]
-- [Enhancement if time permits]
+- Performance: minimal bundle size
+- Browser Support: Modern browsers
+- Libraries to Avoid: with minimal dependencies
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📤 DESIRED OUTPUT
+- a working app
+- one file should have only one component
 - Component code with comments
 - Explanation of key design decisions
 - Any setup instructions
-- [Anything else specific you want]
 ```

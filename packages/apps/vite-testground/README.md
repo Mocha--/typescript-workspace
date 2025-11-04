@@ -1,73 +1,129 @@
-# React + TypeScript + Vite
+# Parcel Tracking Status Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, mobile-first React application for tracking parcel delivery status. Built with React, TypeScript, CSS Modules, and Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Timeline/Wizard View**: Visual representation of parcel status through all stages
+- **Status Tracking**: Tracks five stages: Order Placed → Processing → Shipped → Out for Delivery → Delivered
+- **Delay Detection**: Automatically highlights packages that have been in the same status for more than 2 days
+- **Timeframe Estimates**: Shows anticipated timeframe for each stage
+- **Mobile-First Design**: Optimized for mobile devices with responsive desktop support
+- **Dark Theme**: Modern dark color scheme
+- **Accessibility**: Full keyboard navigation, screen reader support, and ARIA labels
+- **Animations**: Smooth page entry animations and loading spinners
 
-## React Compiler
+## Setup Instructions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (v18 or higher)
+- pnpm (or npm/yarn)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Install dependencies
+pnpm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Start development server
+pnpm dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app will be available at `http://localhost:5173` (or the port shown in your terminal).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Usage
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Enter a tracking number in the input field
+2. Click "Track" or press Enter to search
+3. View the tracking status timeline with all stages
+
+### Mock Tracking Numbers
+
+For testing, use these mock tracking numbers:
+- `TRACK001` - Delivered package
+- `TRACK002` - Out for delivery (delayed - 3 days in status)
+- `TRACK003` - Processing (delayed - 3 days in status)
+
+## Project Structure
+
 ```
+src/
+├── components/          # React components (one component per file)
+│   ├── LoadingSpinner/  # Loading spinner component
+│   ├── TrackingInput/   # Input form for tracking numbers
+│   └── TrackingStatus/  # Timeline/wizard status display
+├── context/             # React Context for state management
+│   └── TrackingContext.tsx
+├── services/            # Mock data service
+│   └── mockTrackingService.ts
+├── types/               # TypeScript type definitions
+│   └── tracking.ts
+├── App.tsx              # Main app component
+├── App.module.css       # App-level styles
+├── main.tsx             # Application entry point
+└── index.css            # Global styles
+```
+
+## Key Design Decisions
+
+### 1. Component Architecture
+- **One file = one component**: Each component is self-contained in its own directory with its CSS module
+- **Separation of concerns**: Types, services, and context are separated from UI components
+- **Reusability**: Components are designed to be independent and reusable
+
+### 2. State Management
+- **React Context API**: Used instead of external libraries to minimize bundle size
+- **Centralized state**: All tracking state is managed in `TrackingContext`
+- **Async handling**: Proper error and loading state management
+
+### 3. Styling Approach
+- **CSS Modules**: Scoped styling to prevent conflicts, no external CSS-in-JS dependencies
+- **Dark theme**: Modern dark color scheme with good contrast ratios
+- **Mobile-first**: Styles designed for mobile, enhanced for desktop
+- **Animations**: CSS-based animations for performance (respects `prefers-reduced-motion`)
+
+### 4. Accessibility
+- **ARIA labels**: All interactive elements have proper ARIA labels
+- **Keyboard navigation**: Full keyboard support including Escape key to clear
+- **Screen reader support**: Semantic HTML and proper role attributes
+- **Focus management**: Visible focus indicators for keyboard users
+
+### 5. User Experience
+- **Loading states**: Visual feedback during API calls (simulated 1.5s delay)
+- **Error handling**: Clear error messages for invalid tracking numbers
+- **Delay highlighting**: Visual indicators (pulsing animation) when package is delayed
+- **Timeline visualization**: Easy-to-understand wizard/timeline format showing all stages
+
+### 6. Performance
+- **Minimal dependencies**: Only React, React-DOM, and TypeScript (no external state management libraries)
+- **CSS animations**: Hardware-accelerated CSS animations instead of JavaScript
+- **Lazy rendering**: Components only render when needed
+- **Optimized bundle**: CSS Modules help with tree-shaking unused styles
+
+## Technical Stack
+
+- **React 19**: Latest React version
+- **TypeScript**: Type-safe development
+- **Vite**: Fast build tool and dev server
+- **CSS Modules**: Scoped component styling
+- **React Context**: State management (no Redux/Zustand needed)
+
+## Browser Support
+
+Modern browsers (Chrome, Firefox, Safari, Edge - latest 2 versions)
+
+## Future Enhancements
+
+Potential improvements:
+- Real API integration
+- Push notifications for status updates
+- Multiple package tracking
+- Export tracking history
+- Internationalization (i18n)
