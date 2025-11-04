@@ -24,6 +24,9 @@ What the feature must DO:
 - Customers especially panic when a package sits in one status for more than 2 days
 - The UI should be mobile friendly or mobile first
 - The app is used quite often by users
+- the app should have a live map of where the current parcel is
+- each tracking stage should be interactive
+  - clicking it should show the status on the map
 
 User interactions:
 - input their tracking number

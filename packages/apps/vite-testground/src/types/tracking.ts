@@ -10,6 +10,14 @@ export type TrackingStatus =
   | 'DELIVERED';
 
 /**
+ * Geographic coordinates for map display
+ */
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
+/**
  * Represents a single status update in the tracking history
  */
 export interface StatusUpdate {
@@ -17,6 +25,7 @@ export interface StatusUpdate {
   timestamp: Date;
   location?: string;
   description?: string;
+  coordinates?: Coordinates;
 }
 
 /**

@@ -1,0 +1,95 @@
+.container {
+  width: 100%;
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mapHeader {
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba(100, 108, 255, 0.1) 0%, rgba(100, 108, 255, 0.05) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mapTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.87);
+  margin: 0 0 0.5rem 0;
+}
+
+.mapLocation {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 0.25rem 0;
+}
+
+.mapStatus {
+  font-size: 0.875rem;
+  color: rgba(100, 108, 255, 0.9);
+  margin: 0;
+  font-weight: 500;
+}
+
+.mapWrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  padding: 2rem;
+}
+
+.emptyText {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+.mapFooter {
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mapFooterText {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  text-align: center;
+}
+
+/* Mobile optimizations */
+@media (max-width: 767px) {
+  .mapWrapper {
+    height: 300px;
+  }
+
+  .mapHeader {
+    padding: 0.875rem 1rem;
+  }
+
+  .mapTitle {
+    font-size: 1rem;
+  }
+
+  .mapLocation,
+  .mapStatus {
+    font-size: 0.8125rem;
+  }
+}

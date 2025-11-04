@@ -1,5 +1,6 @@
 import { useTracking } from '../../context/TrackingContext';
 import type { TrackingStatus } from '../../types/tracking';
+import { ParcelMap } from '../ParcelMap/ParcelMap';
 import styles from './TrackingStatus.module.css';
 import { useEffect, useState } from 'react';
 
@@ -14,6 +15,7 @@ import { useEffect, useState } from 'react';
 export function TrackingStatus() {
   const { trackingInfo } = useTracking();
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState<TrackingStatus | null>(null);
 
   useEffect(() => {
     // Trigger enter animation when tracking info is loaded
@@ -21,6 +23,8 @@ export function TrackingStatus() {
       setIsVisible(false);
       // Small delay to ensure DOM is ready
       const timer = setTimeout(() => setIsVisible(true), 50);
+      // Set initial selected status to current status
+      setSelectedStatus(trackingInfo.currentStatus);
       return () => clearTimeout(timer);
     }
   }, [trackingInfo]);
@@ -164,6 +168,16 @@ export function TrackingStatus() {
     return parts.length > 0 ? parts.join(' • ') : 'Pending';
   };
 
+  // Get the selected status update for map display
+  const getSelectedStatusUpdate = () => {
+    if (!selectedStatus || !trackingInfo) {
+      return null;
+    }
+    return trackingInfo.statusHistory.find((update) => update.status === selectedStatus);
+  };
+
+  const selectedStatusUpdate = getSelectedStatusUpdate();
+
   return (
     <div
       className={`${styles.container} ${isVisible ? styles.visible : ''}`}
@@ -179,6 +193,13 @@ export function TrackingStatus() {
         )}
       </div>
 
+      {/* Live Map */}
+      <ParcelMap
+        coordinates={selectedStatusUpdate?.coordinates || null}
+        locationName={selectedStatusUpdate?.location}
+        status={selectedStatus ? getStatusLabel(selectedStatus) : undefined}
+      />
+
       <ol className={styles.timeline} role="list">
         {statuses.map((status, index) => {
           const statusUpdate = getStatusUpdate(status);
@@ -187,11 +208,27 @@ export function TrackingStatus() {
           const isDelayed = isStatusDelayed(status);
           const estimatedDays = trackingInfo.estimatedTimeframes[status] || 0;
 
+          const isSelected = selectedStatus === status;
+          const hasCoordinates = !!statusUpdate?.coordinates;
+
           return (
             <li
               key={status}
-              className={`${styles.timelineItem} ${isCompleted ? styles.completed : ''} ${isCurrent ? styles.current : ''} ${isDelayed ? styles.delayed : ''}`}
+              className={`${styles.timelineItem} ${isCompleted ? styles.completed : ''} ${isCurrent ? styles.current : ''} ${isDelayed ? styles.delayed : ''} ${isSelected ? styles.selected : ''} ${hasCoordinates ? styles.clickable : ''}`}
               role="listitem"
+              onClick={() => {
+                if (hasCoordinates) {
+                  setSelectedStatus(status);
+                }
+              }}
+              onKeyDown={(e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && hasCoordinates) {
+                  e.preventDefault();
+                  setSelectedStatus(status);
+                }
+              }}
+              tabIndex={hasCoordinates ? 0 : undefined}
+              aria-label={`${getStatusLabel(status)} - ${hasCoordinates ? 'Click to view on map' : 'No location data'}`}
             >
               <div className={styles.statusIndicator}>
                 <div className={styles.circle} aria-hidden="true">

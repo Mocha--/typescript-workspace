@@ -254,6 +254,46 @@
   color: #646cff;
 }
 
+.timelineItem.clickable {
+  cursor: pointer;
+}
+
+.timelineItem.clickable:hover {
+  opacity: 0.9;
+}
+
+.timelineItem.clickable:focus-visible {
+  outline: 2px solid #646cff;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.timelineItem.selected {
+  position: relative;
+}
+
+.timelineItem.selected::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #646cff;
+  border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+  .timelineItem.selected::before {
+    left: 0;
+    top: -8px;
+    right: 0;
+    bottom: auto;
+    height: 4px;
+    width: auto;
+  }
+}
+
 .delayBadge {
   display: inline-flex;
   align-items: center;

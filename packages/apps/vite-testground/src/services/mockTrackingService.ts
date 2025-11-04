@@ -1,4 +1,4 @@
-import type { TrackingInfo, TrackingStatus, StatusUpdate } from '../types/tracking';
+import type { TrackingInfo, TrackingStatus, StatusUpdate, Coordinates } from '../types/tracking';
 
 /**
  * Mock tracking service that simulates API calls
@@ -16,30 +16,35 @@ const MOCK_TRACKING_DATA: Record<string, TrackingInfo> = {
         timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
         location: 'Warehouse A',
         description: 'Order received and confirmed',
+        coordinates: { latitude: 40.7128, longitude: -74.0060 }, // New York
       },
       {
         status: 'PROCESSING',
         timestamp: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), // 6 days ago
         location: 'Warehouse A',
         description: 'Package is being prepared',
+        coordinates: { latitude: 40.7128, longitude: -74.0060 }, // New York
       },
       {
         status: 'SHIPPED',
         timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 days ago
         location: 'Distribution Center',
         description: 'Package has been shipped',
+        coordinates: { latitude: 40.7589, longitude: -73.9851 }, // Manhattan Distribution
       },
       {
         status: 'OUT_FOR_DELIVERY',
         timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
         location: 'Local Delivery Hub',
         description: 'Package is out for delivery',
+        coordinates: { latitude: 40.7282, longitude: -73.9942 }, // Brooklyn Hub
       },
       {
         status: 'DELIVERED',
         timestamp: new Date(Date.now() - 0.5 * 24 * 60 * 60 * 1000), // 12 hours ago
         location: 'Customer Address',
         description: 'Package has been delivered',
+        coordinates: { latitude: 40.7505, longitude: -73.9934 }, // Customer Location
       },
     ],
     estimatedDelivery: new Date(Date.now() - 0.5 * 24 * 60 * 60 * 1000),
@@ -60,24 +65,28 @@ const MOCK_TRACKING_DATA: Record<string, TrackingInfo> = {
         timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
         location: 'Warehouse B',
         description: 'Order received and confirmed',
+        coordinates: { latitude: 34.0522, longitude: -118.2437 }, // Los Angeles
       },
       {
         status: 'PROCESSING',
         timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
         location: 'Warehouse B',
         description: 'Package is being prepared',
+        coordinates: { latitude: 34.0522, longitude: -118.2437 }, // Los Angeles
       },
       {
         status: 'SHIPPED',
         timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
         location: 'Distribution Center',
         description: 'Package has been shipped',
+        coordinates: { latitude: 34.0615, longitude: -118.2376 }, // LA Distribution
       },
       {
         status: 'OUT_FOR_DELIVERY',
         timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago - DELAYED
         location: 'Local Delivery Hub',
         description: 'Package is out for delivery',
+        coordinates: { latitude: 34.0489, longitude: -118.2517 }, // LA Delivery Hub
       },
     ],
     estimatedDelivery: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
@@ -98,12 +107,14 @@ const MOCK_TRACKING_DATA: Record<string, TrackingInfo> = {
         timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
         location: 'Warehouse C',
         description: 'Order received and confirmed',
+        coordinates: { latitude: 41.8781, longitude: -87.6298 }, // Chicago
       },
       {
         status: 'PROCESSING',
         timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago - DELAYED
         location: 'Warehouse C',
         description: 'Package is being prepared',
+        coordinates: { latitude: 41.8781, longitude: -87.6298 }, // Chicago
       },
     ],
     estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
