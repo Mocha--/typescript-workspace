@@ -8,6 +8,14 @@
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
+/* Desktop: Allow more width for horizontal layout */
+@media (min-width: 768px) {
+  .container {
+    max-width: 1200px;
+    padding: 2rem;
+  }
+}
+
 .container.visible {
   opacity: 1;
   transform: translateY(0);
@@ -42,6 +50,19 @@
   padding: 0;
   margin: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Desktop: Horizontal layout */
+@media (min-width: 768px) {
+  .timeline {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 2rem 0;
+  }
 }
 
 .timelineItem {
@@ -50,6 +71,20 @@
   margin-bottom: 2rem;
   position: relative;
   padding-left: 0.5rem;
+}
+
+/* Desktop: Horizontal layout adjustments */
+@media (min-width: 768px) {
+  .timelineItem {
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-top: 0;
+    position: relative;
+    min-width: 0;
+  }
 }
 
 .timelineItem:last-child {
@@ -62,6 +97,16 @@
   align-items: center;
   flex-shrink: 0;
   position: relative;
+}
+
+/* Desktop: Horizontal layout for status indicator */
+@media (min-width: 768px) {
+  .statusIndicator {
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .circle {
@@ -142,6 +187,21 @@
   transition: background-color 0.3s;
 }
 
+/* Desktop: Horizontal connector */
+@media (min-width: 768px) {
+  .connector {
+    width: auto;
+    height: 3px;
+    min-height: 3px;
+    min-width: 20px;
+    flex: 1;
+    max-width: 100px;
+    margin-top: 0;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
 .connectorCompleted {
   background-color: #646cff;
 }
@@ -152,12 +212,31 @@
   min-width: 0;
 }
 
+/* Desktop: Horizontal layout for status content */
+@media (min-width: 768px) {
+  .statusContent {
+    padding-top: 1rem;
+    text-align: center;
+    width: 100%;
+    max-width: 150px;
+  }
+}
+
 .statusHeader {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
   margin-bottom: 0.5rem;
+}
+
+/* Desktop: Horizontal layout for status header */
+@media (min-width: 768px) {
+  .statusHeader {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
 }
 
 .statusTitle {
@@ -229,7 +308,7 @@
 }
 
 /* Mobile optimizations */
-@media (max-width: 479px) {
+@media (max-width: 767px) {
   .circle {
     width: 40px;
     height: 40px;
@@ -246,6 +325,34 @@
 
   .timelineItem {
     gap: 0.75rem;
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 768px) {
+  .circle {
+    width: 56px;
+    height: 56px;
+  }
+
+  .checkmark {
+    width: 28px;
+    height: 28px;
+  }
+
+  .statusTitle {
+    font-size: 0.9375rem;
+    text-align: center;
+  }
+
+  .statusDescription {
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .distanceInfo {
+    text-align: center;
+    font-size: 0.8125rem;
   }
 }
 
